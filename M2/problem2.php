@@ -4,6 +4,9 @@ $a2 =[1.99,1.99, 0.99, 1.973, 0.99,1.91, 0.91, 0.99];
 $a3 =[0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 01.01];
 $a4 =[10.01, -12.22, 0.23, 29.20, -5.13, 2.12];
 function getTotal($arr) {
+	foreach($arr as $val){
+		$val = round($val, 3);
+	}
     //use the $arr variable to iterate over
     echo "<br>Processing Array: <br> <pre>". var_export($arr, True) . "</pre>";
     $total = 0.00;
