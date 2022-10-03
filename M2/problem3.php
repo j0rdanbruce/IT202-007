@@ -8,6 +8,11 @@ function bePositive($arr) {
     echo "<br>Processing Array: <br> <pre>". var_export($arr, True) . "</pre>";
     echo "<br>Positive Output";
 	//TODO echo to output any value that positive (i.e., ignore negatives and characters)
+	foreach ($arr as $val){
+		if (is_numeric($val) && floatval($val > 0)){
+			echo ' ', floatval($val), ',';
+		}
+	}
 }
 ?>
 <h2> Problem 3: Be Positive</h2>

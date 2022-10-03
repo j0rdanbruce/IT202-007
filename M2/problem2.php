@@ -8,7 +8,11 @@ function getTotal($arr) {
     echo "<br>Processing Array: <br> <pre>". var_export($arr, True) . "</pre>";
     $total = 0.00;
     //TODO do adding here
+	foreach ($arr as $num){
+		$total += $num;
+	}
     //TODO do rounding stuff here.  
+	$total = round($total, 2);
     //TODO Extra Credit: show 2 point precision even if last number is a 0
     echo "<br>The total is ".var_export($total, true);
  }

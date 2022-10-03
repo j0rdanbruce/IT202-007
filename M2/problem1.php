@@ -8,6 +8,11 @@ function processArray($arr) {
     echo "<br>Processing Array: <br> <pre>". var_export($arr, True) . "</pre>";
     echo "<br>Divisible By 3 Output:<br>";
     //TODO add logic here to echo out any values divisible by 3 
+    foreach($arr as $num){
+        if ($num % 2 != 0){
+            echo $num, ", ";
+        }
+    }
 }
 ?>
 <h2> Problem 1: Divisible By 3 Output</h2>
