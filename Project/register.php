@@ -69,18 +69,18 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
     }
     if (!$hasError) {
         echo "Welcome, $email";
-        //TODO 5.0 $hash = password_hash($password, PASSWORD_BCRYPT);
-        //TODO 5.0 $db = getDB();
-        //TODO 5.0 $stmt = $db->prepare("INSERT INTO User (email, pwrdHash) VALUES(:email, :password)");
-        //TODO 5.0 try {
-        //TODO 5.0     $stmt->execute([":email" => $email, ":password" => $hash]);
-        //TODO 5.0     echo "Successfully registered!";
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $db = getDB();
+        $stmt = $db->prepare("INSERT INTO User (email, pwrdHash) VALUES(:email, :password)");
+        try {
+            $stmt->execute([":email" => $email, ":password" => $hash]);
+            echo "Successfully registered!";
         //TODO 5.1     echo with: flash("Successfully registered!", "success");
-        //TODO 5.0 } catch (Exception $e) {
-        //TODO 5.0    echo "There was a problem registering<br>";
-        //TODO 5.0    echo "<pre>" . var_export($e, true) . "</pre>";
+        } catch (Exception $e) {
+            echo "There was a problem registering<br>";
+            echo "<pre>" . var_export($e, true) . "</pre>";
         //TODO 5.1    users_check_duplicate($e->errorInfo);
-        //TODO 5.0 } 
+        } 
     }
 }
 ?>
