@@ -11,6 +11,8 @@
         var rightPaddle;
         var roundCounter = 0;
         var ball;
+
+        //UCID: 31569180      DATE: 11/20/22
         var speedBlock;
         var speedBlockSpeed = 1;
         var paddleWidth = 25;
@@ -58,6 +60,8 @@
                 canvas.focus();
             }
         }
+
+        //UCID: 31569180      DATE: 11/20/22
         function resetBall() {
             roundCounter++;
             aiDifficulty();
@@ -234,6 +238,7 @@
             context.fillRect(0, 0, canvas.width, canvas.height);
         }
 
+        //UCID: 31569180      DATE: 11/20/22
         function gameLoop() {
             erase();
             movePaddle();
@@ -243,11 +248,14 @@
             checkPaddleCollision();
             checkScore();
             drawScores();
+
+            checkSpeedBlockBoundaries();
             //draw stuff
             for (let i = 0; i < drawables.length; i++) {
                 drawables[i].draw();
             }
         }
+        //UCID: 31569180      DATE: 11/20/22
         function aiDifficulty(){
           if (leftScore - rightScore > 3 && visibilityPercent >= 0){
             visibilityPercent-= 0.1;
@@ -257,11 +265,20 @@
           }
         }
 
+        //UCID: 31569180      DATE: 11/20/22
         function checkSpeedBlockBoundaries(){
           let ballcY = ball.y + ball.h/2;
-            if (ballcY >= speedBlock.y && ballcY <= speedBlock.y + speedBlock.h) {
-                ball.sX+= 2;
+            if (ballcY == speedBlock.y && ballcY == speedBlock.y + speedBlock.h) {
+                ball.sX+= 1;
             }
+        }
+
+        //UCID: 31569180      DATE: 11/20/22
+        function moveSpeedBlock(){
+          speedBlock.y+= speedBlock.sY;
+          if (speedBlock.y < 0){
+            speedBlock.y*= -1;
+          }
         }
 
     </script>
