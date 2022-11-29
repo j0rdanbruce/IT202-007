@@ -4,6 +4,10 @@ require_once(__DIR__ . "/../partials/nav.php");
 ?>
 <form onsubmit="return validate(this)" method="POST">
     <div>
+        <label for="logName"> Login Name </label>
+        <input type="text" name="logName" required maxlength="30">
+    </div>
+    <div>
         <label for="email">Email</label>
         <input type="email" name="email" required />
     </div>
@@ -15,6 +19,7 @@ require_once(__DIR__ . "/../partials/nav.php");
         <label for="confirm">Confirm</label>
         <input type="password" name="confirm" required minlength="8" />
     </div>
+    
     <input type="submit" value="Register" />
 </form>
 <script>
@@ -31,10 +36,15 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
     $email = se($_POST, "email", "", false);
     $password = se($_POST, "password", "", false);
     $confirm = se($_POST, "confirm", "", false);
+    $logName = se($_POST, "logName", "", false);
 
 
     //TODO 3.0
     $hasError = false;
+    if (!preg_match('/^[a-z-9_-]{3,30}$/', $logName)) {
+        flash("Login Name must be at least 3 characters and a maximum of 30. It must be lowercase, alphanumerical, or either special character _ or -", "warning");
+        $hasError = true;
+    }
     if (empty($email)) {
         //TODO 3.1 flash("Email must not be empty", "danger");
         flash("Email must not be empty");
@@ -68,12 +78,12 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         $hasError = true;
     }
     if (!$hasError) {
-        flash("Welcome, $email");
+        //flash("Welcome, $email");
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO User (email, pwrdHash) VALUES(:email, :password)");
+        $stmt = $db->prepare("INSERT INTO User (email, pwrdHash, logName) VALUES(:email, :password, :logName)");
         try {
-            $stmt->execute([":email" => $email, ":password" => $hash]);
+            $stmt->execute([":email" => $email, ":password" => $hash, ":logName" => $logName]);
             flash("Successfully registered!");
         //TODO 5.1     echo with: flash("Successfully registered!", "success");
         } catch (Exception $e) {
