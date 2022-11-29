@@ -31,27 +31,28 @@ require(__DIR__ . "/../lib/functions.php");
 ?>
 <nav>
     <ul>
-        <?php 
-//TODO 2        if (is_logged_in()) : 
+        <?php        
+            if (is_logged_in()) : 
         ?> 
             <li><a href="home.php">Home</a></li>
+            <li><a href="profile.php">Profile</a></li>
         <?php 
-//TODO 2        endif; 
+                endif; 
         ?>
         <?php 
-//TODO 2        if (!is_logged_in()) : 
+            if (!is_logged_in()) : 
         ?>
             <li><a href="login.php">Login</a></li>
             <li><a href="register.php">Register</a></li>
         <?php 
-//TODO 2        endif; 
+            endif; 
         ?>
         <?php 
-//TODO 2        if (is_logged_in()) : 
+            if (is_logged_in()) : 
         ?>
             <li><a href="logout.php">Logout</a></li>
         <?php 
-//TODO 2        endif; 
+            endif; 
         ?>
     </ul> 
 </nav>
