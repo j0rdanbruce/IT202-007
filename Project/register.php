@@ -51,11 +51,12 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         $hasError = true;
     }
     //sanitize
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    //$email = filter_var($email, FILTER_SANITIZE_EMAIL);
     //TODO 4.1 replace 4.0: $email = sanitize_email($email);
     //validate
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    //TODO 4.1: if (!is_valid_email($email)) {
+    //if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    //TODO 4.1: 
+    if (!is_valid_email($email)) {
     //TODO 4.2:     flash("Username must only contain 3-16 characters a-z, 0-9, _, or -", "danger");
         flash("Invalid email address");
         $hasError = true;
