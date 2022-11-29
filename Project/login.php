@@ -29,8 +29,9 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     //TODO 3.0
     $hasError = false;
     if (empty($email)) {
-        //TODO 3.1 flash("Email must not be empty", "danger");
-        flash("Email must not be empty");
+        //TODO 3.1 
+        flash("Email must not be empty", "danger");
+        //flash("Email must not be empty");
         $hasError = true;
     }
     //sanitize
