@@ -30,7 +30,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     $hasError = false;
     if (empty($email)) {
         //TODO 3.1 flash("Email must not be empty", "danger");
-        echo "Email must not be empty";
+        flash("Email must not be empty");
         $hasError = true;
     }
     //sanitize
@@ -40,20 +40,20 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     //TODO 4.1: if (!is_valid_email($email)) {
     //TODO 4.2:     flash("Username must only contain 3-16 characters a-z, 0-9, _, or -", "danger");
-         echo "Invalid email address";
+         flash("Invalid email address");
          $hasError = true;
      }
 
     if (empty($password)) {
-        echo "Password must not be empty";
+        flash("Password must not be empty");
         $hasError = true;
     }
     if (strlen($password) < 8) {
-        echo "Password must be >8 characters";
+        flash("Password must be >8 characters");
         $hasError = true;
     }
     if (!$hasError) {
-        echo "Welcome, $email";
+        flash("Welcome, $email");
         //TODO 4.0
         $db = getDB();
         $stmt = $db->prepare("SELECT email, pwrdHash from User where email = :email");
@@ -65,15 +65,15 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                     $hash = $user["pwrdHash"];
                     unset($user["pwrdHash"]);
                     if (password_verify($password, $hash)) {
-                        //echo "Welcome $email";
+                        //flash("Welcome $email");
 
                         $_SESSION["user"] = $user;
                         die(header("Location: home.php"));
                     } else {
-                       echo "Invalid password";
+                       flash("Invalid password");
                     }
                 } else {
-                    echo "Email not found";
+                    flash("Email not found");
                 }
             }
         } catch (Exception $e) {
@@ -82,4 +82,8 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 
     }
 }
+?>
+
+<?php
+require_once(__DIR__ . "/../partials/flash.php");
 ?>
