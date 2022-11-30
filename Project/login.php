@@ -55,7 +55,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         $hasError = true;
     }
     if (!$hasError) {
-        flash("Welcome, $email");
+        //flash("Welcome, $email");
         //TODO 4.0
         $db = getDB();
         $stmt = $db->prepare("SELECT id, email, pwrdHash, logName from User where email = :email");
