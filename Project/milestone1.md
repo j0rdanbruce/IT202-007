@@ -31,26 +31,26 @@ __SubTask 1:__ Add one or more **screenshots** of the application showing the fo
     
 |    #    | Points | Details        |
 | ------- | ------ | --------------:|
-| [ ] #1  | 1      | Show invalid email validation |
+| [X] #1  | 1      | Show invalid email validation |
 | [ ] #2  | 1      | Show invalid password validation |
 | [ ] #3  | 1      | Show passwords not much validation |
 | [ ] #4  | 1      | Show email not available validation (already registered) |
-| [ ] #5  | 1      | Show Login Name not available validation (logName is taken) |
-| [ ] #6  | 1      | Show the form with valid data filled in before the form is submitted |
+| [x] #5  | 1      | Show Login Name not available validation (logName is taken) |
+| [X] #6  | 1      | Show the form with valid data filled in before the form is submitted |
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> #1:  
+> #1: [Invalid email validation](https://user-images.githubusercontent.com/95323815/204876998-623b5dd5-d344-465a-b013-19c8ef812c4f.png)
 
-> #2: 
+> #2: []()
 
 > #3: 
 
-> #4: 
+> #4: [email not avilable](https://user-images.githubusercontent.com/95323815/204879455-d2872060-bc02-4dae-8de1-462ff04b6720.png)
 
-> #5: 
+> #5: [logName not available](https://user-images.githubusercontent.com/95323815/204878820-d5958f62-c5ad-42a5-99e9-1ebe366cfc0e.png)
 
-> #6: 
+> #6: [form data](https://user-images.githubusercontent.com/95323815/204878415-f7351546-b17c-4361-828c-5a7b3f9b15a2.png)
 
 </ul>
 
@@ -60,7 +60,9 @@ __SubTask 2:__ Add **screenshot** of the User table with data in it. The valid u
 
 #### Make sure if the  **screenshot**  contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:  
+> Screenshot:  [left half of screen](https://user-images.githubusercontent.com/95323815/204880142-836a2a2c-6112-416d-8039-ec13d83933ea.png)
+
+[right half of screen](https://user-images.githubusercontent.com/95323815/204880100-35535084-0b61-4936-9294-f68aa5e25375.png)
 
 </ul>
 
@@ -70,7 +72,7 @@ __SubTask 3:__ Add the related pull request(s) for this feature
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): (https://github.com/j0rdanbruce/IT202-007/pull/9)
 
 </ul> 
 
@@ -82,18 +84,18 @@ __SubTask 4:__ Explain briefly how the process/code works (to register)
      
 |    #     | Points | Details                                                  |
 | -------- | ------ | --------------------------------------------------------:|
-| [ ] #1  | 1       | Explain how the form is handled and behaves             |
+| [ x] #1  | 1       | Explain how the form is handled and behaves             |
 | [ ] #2  | 1       | Explain the validation logic (frontend and backend)     |
 | [ ] #3  | 1       | Explain how the password is handled                     |
 | [ ] #4  | 1       | Explain how the DB is utilized                          |
 
-> #1:  
+> #1:  the form accepts user input data for logName, email, and password. the data is then sent to the backend to check for validation of all the sent data. If all data passes the defined requirements then the person has successfully registered an account.
 
-> #2:  
+> #2:  the front end uses form elements for the user to input data. The input data has identified names. the identified names via tags are then sent to backend. The backend checks the requirements for the input data. If data passes all requirements then person has successfully registered.
 
-> #3: 
+> #3: The password is sent to from the frontend to the backend. The user typed password is checked to meet the criteria of the established "valid password" rules. If passed requirements for a proper password, the password is then encrypted as a password hash. The password hash is a one way encryption so once it is encrypted it can not be decrypted by the user or server side. 
 
-> #4: 
+> #4: The DB is utilized to store the form data for each user. Each successfully registered user has a dedicated row in the "User" database. Each column of the USER database represents different types of data such as logName or email or id.
 
 </ul></ul>
 
@@ -114,9 +116,9 @@ validation errors per the feature requirements
 
 <br>Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> #1:  
+> #1:  [incorrect password](https://user-images.githubusercontent.com/95323815/204882106-7e34c785-d67a-4fd4-9641-c85995e168e0.png)
 
-> #2: 
+> #2: [invalid user](https://user-images.githubusercontent.com/95323815/204882683-c7f0ab0e-cef4-462c-8f39-41a1dc52ba80.png)
 
 </ul>
 
@@ -126,7 +128,7 @@ __SubTask 2:__ Add a **screenshot** of successful login
 
 Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:  
+> Screenshot:  [successful login](https://user-images.githubusercontent.com/95323815/204882919-bceb2f83-f971-4b29-8ff0-0daa9188f5a4.png)
 
 
 </ul>
@@ -137,7 +139,7 @@ __SubTask 3:__ Add the related pull request(s) for this feature
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): [basic navigation](https://github.com/j0rdanbruce/IT202-007/pull/14)
 
 </ul> 
 
@@ -149,18 +151,18 @@ __SubTask 4:__ Explain briefly how the process/code works (to login)
      
 |    #     | Points | Details                                                  |
 | -------- | ------ | --------------------------------------------------------:|
-| [ ] #1  | 1       | Explain how the form is handled and behaves             |
-| [ ] #2  | 1       | Explain the validation logic (frontend and backend)     |
+| [ x] #1  | 1       | Explain how the form is handled and behaves             |
+| [x ] #2  | 1       | Explain the validation logic (frontend and backend)     |
 | [ ] #3  | 1       | Explain how the password is handled                     |
 | [ ] #4  | 1       | Explain how the DB is utilized                          |
 
-> #1:  
+> #1:  the html accepts form for email and password. The form data is sent to the backend. Created functions check ff the email and password match an existing username and password in the database. If one of the required login forms is not correct, the user cannot login succesfully.
 
-> #2:  
+> #2:  the form data is handled via html element tags. The data is then data is sent form the front end to the back end. The backend uses various functions to check the typed in email and password. The functions return true or false for email and password checking. If tru, then successful login, If false, then unsuccessful login.
 
-> #3: 
+> #3: The password is sent to the backend. The password is sent as a hash to check for a preexisting hash for that same password. 
 
-> #4: 
+> #4: The database holds data for both email and password hash for existing users. The information form the database can be checked for this information to login a user if given the right email and password. If the email or password does not match what is in the database, then the user cannot login.
 
 </ul></ul>
  
@@ -173,7 +175,7 @@ __SubTask 1:__ Add a **screenshot** showing the successful logout message. Messa
 
 Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:  
+> Screenshot:  [successful logout](https://user-images.githubusercontent.com/95323815/204885535-54d40eb8-22b6-4fdd-997b-9938707be28f.png)
 
 </ul>
 
@@ -183,7 +185,7 @@ __SubTask 2:__ Add a **screenshot** showing the logged out user can't access a l
 
 Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:  
+> Screenshot:  [not logged in](https://user-images.githubusercontent.com/95323815/204885802-c08fe54e-1a08-47f1-9773-cc7fa85daec0.png)
 
 
 </ul>
@@ -194,7 +196,7 @@ __SubTask 3:__ Add the related pull request(s) for this feature
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/pull/14
 
 </ul> 
 
@@ -202,7 +204,7 @@ __SubTask 4:__ Explain briefly how the process/code works. Describe the session 
 
 <ul>
 
-> Explanation:  
+> Explanation:  when a user logs in successfully, there is a sessionstart() function that is run. Upon successful logout, the session is destroyed. A new session starts and a flash message appears showing the user has successfully logged out. 
 
 </ul></ul>
 
@@ -215,7 +217,7 @@ __SubTask 1:__ Add a **screenshot** showing the logged out user can't access a l
 
 Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:  
+> Screenshot:  [security for accessing data](https://user-images.githubusercontent.com/95323815/204885802-c08fe54e-1a08-47f1-9773-cc7fa85daec0.png)
 
 </ul>
 
