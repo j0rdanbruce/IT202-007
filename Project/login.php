@@ -1,24 +1,6 @@
 <?php
 require(__DIR__ . "/../partials/nav.php");
 ?>
-
-<style>
-    input {
-        padding:10px;
-        border:0;
-        box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-        border-radius:10px;
-        margin: 6px;
-    }
-
-    input[type=submit] {
-        background: #a1a1a1;
-    }
-    input[type=submit]:active{
-        box-shadow: 0px 0px 0px #999999;
-    }
-</style>
-
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="email">Email</label>

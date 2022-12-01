@@ -2,17 +2,6 @@
 require(__DIR__ . "/../partials/nav.php");
 reset_session();
 ?>
-
-<style>
-    input {
-        padding:10px;
-        border:0;
-        box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-        border-radius:10px;
-        margin: 6px;
-    }
-</style>
-
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="logName"> Login Name </label>

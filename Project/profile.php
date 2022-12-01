@@ -2,17 +2,6 @@
 require_once(__DIR__ . "/../partials/nav.php");
 is_logged_in(true);
 ?>
-
-<style>
-    input {
-        padding:10px;
-        border:0;
-        box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-        border-radius:10px;
-        margin: 6px;
-    }
-</style>
-
 <?php
 if (isset($_POST["save"])) {
     $email = se($_POST, "email", null, false);
