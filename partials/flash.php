@@ -29,7 +29,21 @@
         border-radius: 15px;
         margin: 6px;
     }
-    .alert-warning {background-color: yellow;}
-    .alert-danger {background-color: red;}
-    .alert-info {background-color: teal;}
+    .alert-warning {
+        background-color: yellow;
+        background-color: green;
+        border-radius: 15px;
+        margin: 6px;
+    }
+    .alert-danger {
+        background-color: red;
+        background-color: green;
+        border-radius: 15px;
+        margin: 6px;
+    }
+    .alert-info {
+        background-color: teal;
+        background-color: green;
+        border-radius: 15px;
+        margin: 6px;}
 </style>
