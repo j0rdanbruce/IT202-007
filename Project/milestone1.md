@@ -291,20 +291,20 @@ __SubTask 1:__ Add a **screenshot** showing the successful logout message
     
 |    #    | Points | Details        |
 | ------- | ------ | --------------:|
-| [ ] #1  | 1      | Navigation should be styled |
-| [ ] #2  | 1      | Forms should be styled |
-| [ ] #3  | 1      | UI should be clean and not have my "hideous" example CSS |
+| [ x] #1  | 1      | Navigation should be styled |
+| [ x] #2  | 1      | Forms should be styled |
+| [x ] #3  | 1      | UI should be clean and not have my "hideous" example CSS |
 | [ ] #4  | 1      | Data output should be in a clean manner (i.e., table, row/cols, list groups, etc).<br>Basically not exactly like dumped plaintext |
 
 Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> #1:  
+> #1:  [navigation style](https://user-images.githubusercontent.com/95323815/205156836-0c7ccc52-7fb1-48ed-9ba7-5052a2ab2f22.png)
 
-> #2:  
+> #2:  [styled forms](https://user-images.githubusercontent.com/95323815/205157046-37c89584-03f6-4378-95bb-b927d59e34ac.png)
 
-> #3:  
+> #3:  [clean UI](https://user-images.githubusercontent.com/95323815/205157303-2d55331e-b575-4e42-aafc-2a41029abc1e.png)
 
-> #4:  
+> #4:  [clean data output format](https://user-images.githubusercontent.com/95323815/205157577-641074d0-2f6f-40f8-bfc4-b95832c97825.png)
 
 </ul>
 
@@ -314,7 +314,7 @@ __SubTask 2:__ Add the related pull request(s) for this feature
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/pull/30
 
 </ul> 
 
@@ -322,7 +322,7 @@ __SubTask 3:__ Briefly explain your CSS at a high level. Highlight the basic sty
 
 <ul>
 
-> Explanation:   
+> Explanation:   I turned the navigation bar horizontal. I added rounded edges to the corners of the navigation bar background. changed color of navigatio nbar background. Navigation links change color when mouse hovers over nagivation link. included placeholders inside the text boxes. rounded hte edges of the submit buttons. shaded in the submit button when clicked on to show that the button was pressed.
 
 </ul>
 
@@ -342,9 +342,9 @@ __SubTask 1:__ Add **screenshots** showing of some examples of errors/messages
 
 Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> #1: 
+> #1: [message when not logged in](https://user-images.githubusercontent.com/95323815/205158464-4335b58f-93dc-4696-8c9f-46762eafaeb9.png)
 
-> #2:  
+> #2:  [message when for incorrect email](https://user-images.githubusercontent.com/95323815/205158717-a322783b-54fe-4df4-b468-d9a0b31816b1.png)
 
 </ul>
 
@@ -354,7 +354,7 @@ __SubTask 2:__ Add a related pull request(s)
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/pull/32
 
 </ul> 
 
@@ -362,7 +362,7 @@ __SubTask 3:__ Explain briefly how you made messages user friendly. Describe wha
 
 <ul>
 
-> Explanation:  
+> Explanation:  When the user attempts to login with either email or lgin name, the data is sent to the backend. There are functions that check for proper logname or proper email and for proper password hash. If any of those return as false when run in the function, the login attempt is unsuccessful and a flash message is displayed.
 
 </ul></ul>
 
@@ -375,7 +375,7 @@ __SubTask 1:__ Add a **screenshot** showing the successful logout message. Email
 
 Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:  
+> Screenshot:  [prefilled user data](https://user-images.githubusercontent.com/95323815/205159626-394057d7-b28a-49ee-adce-e064182e3d40.png)
 
 </ul>
 
@@ -385,7 +385,7 @@ __SubTask 2:__ Add the related pull request(s) for this feature
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/pull/29
 
 </ul>
 
@@ -393,7 +393,7 @@ __SubTask 3:__ Explain briefly how the process/code works (view only). Only talk
 
 <ul>
 
-> Explanation:  
+> Explanation:  If login is successful, the form data auto inputs the email logName of the user in the specific users profile page.
 
 </ul></ul>
 
@@ -416,15 +416,15 @@ __SubTask 1:__ Add **screenshots** of the User Profile page validation messages 
 
 Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> #1:  
+> #1:  [changed login name successfully](https://user-images.githubusercontent.com/95323815/205160694-02f6b9df-75cb-47d6-9ed1-1127efce7dc0.png)
 
 > #2:  
 
-> #3:  
+> #3:  [password reset validation message](https://user-images.githubusercontent.com/95323815/205160982-b254543c-1777-417b-a827-2c686e58c3bb.png)
 
-> #4:  
+> #4:  [password mismatch flash message](https://user-images.githubusercontent.com/95323815/205161414-4d981f89-849d-4a8e-8ded-1ac8815fad63.png)
 
-> #5:  
+> #5:  [login name already in use](https://user-images.githubusercontent.com/95323815/205161510-f9ac1925-23f3-428d-899a-b8c38d8ed1ec.png)
 
 </ul>
 
@@ -441,9 +441,9 @@ __SubTask 2:__ Add before and after **screenshots** showing the User table when 
 
 Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> #1:  
+> #1:  [before user changes logName](https://user-images.githubusercontent.com/95323815/205161863-23cf2efa-1bc6-4d35-a49a-f3bbaa6dc0e9.png)
 
-> #2:
+> #2:[after logname is changed](https://user-images.githubusercontent.com/95323815/205162157-19866db0-77f1-4976-96b2-9204e10f1e69.png)
 
 </ul>
 
@@ -453,7 +453,7 @@ __SubTask 3:__ Add the related pull request(s) for this feature
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/pull/29
 
 </ul> 
 
@@ -462,7 +462,7 @@ __SubTask 4:__ Explain briefly how the process/code works (edit only). Talk abou
 
 <ul>
 
-> Explanation:  
+> Explanation:  the user table added a column for logName. The register page updated to allow form to input logname. the information is sent to the backend. sql scripts add user data for logname to the current users data in the servers. Changes made to logname or password are altered in the sql tables on the servers that host the user information.
 
 </ul></ul>
 
@@ -485,7 +485,7 @@ Make sure if the **screenshot** contains code that you have a relevant comment w
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
 > #1:  
 
-> #2:  
+> #2:  [project board](https://user-images.githubusercontent.com/95323815/205164435-a102ce72-1374-48fc-ab01-862e62b538a5.png)
 
 </ul>
 
@@ -493,7 +493,7 @@ __SubTask 2:__ Include a direct link to your Project Board. URL should end in /p
 
 <ul>
 
-> URL:  
+> URL:  https://github.com/users/j0rdanbruce/projects/1
 
 </ul>
 
