@@ -55,7 +55,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         }
     }
     if (empty($password)) {
-        flash("Password must not be empty");
+        flash("password must not be empty");
         $hasError = true;
     }
     if (!is_valid_password($password)) {
