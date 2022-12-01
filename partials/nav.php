@@ -37,6 +37,7 @@ require(__DIR__ . "/../lib/functions.php");
         padding: 0;
         overflow: hidden;
         background-color: teal;
+        border-radius:10px;
     }
 
     li {

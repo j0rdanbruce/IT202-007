@@ -1,14 +1,25 @@
 <?php
 require(__DIR__ . "/../partials/nav.php");
 ?>
+
+<style>
+    input {
+        padding:10px;
+        border:0;
+        box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+        border-radius:10px;
+        margin: 6px;
+    }
+</style>
+
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="email">Email</label>
-        <input type="email" name="email" required />
+        <input type="email" name="email" required placeholder="email here"/>
     </div>
     <div>
         <label for="pw">Password</label>
-        <input type="password" id="pw" name="password" required minlength="8" />
+        <input type="password" id="pw" name="password" required minlength="8" placeholder="enter here"/>
     </div>
     <input type="submit" value="Login" />
 </form>

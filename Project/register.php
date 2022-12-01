@@ -2,22 +2,33 @@
 //require_once(__DIR__ . "/../lib/functions.php");
 require_once(__DIR__ . "/../partials/nav.php");
 ?>
+
+<style>
+    input {
+        padding:10px;
+        border:0;
+        box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+        border-radius:10px;
+        margin: 6px;
+    }
+</style>
+
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="logName"> Login Name </label>
-        <input type="text" name="logName" required maxlength="30">
+        <input type="text" name="logName" required maxlength="30" placeholder="e.g. max">
     </div>
     <div>
         <label for="email">Email</label>
-        <input type="email" name="email" required />
+        <input type="email" name="email" required placeholder="email@hotmail.com"/>
     </div>
     <div>
         <label for="pw">Password</label>
-        <input type="password" id="pw" name="password" required minlength="8" />
+        <input type="password" id="pw" name="password" required minlength="8" placeholder="*****"/>
     </div>
     <div>
         <label for="confirm">Confirm</label>
-        <input type="password" name="confirm" required minlength="8" />
+        <input type="password" name="confirm" required minlength="8" placeholder="*****"/>
     </div>
     
     <input type="submit" value="Register" />
