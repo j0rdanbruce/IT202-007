@@ -10,6 +10,13 @@ require(__DIR__ . "/../partials/nav.php");
         border-radius:10px;
         margin: 6px;
     }
+
+    .submit {
+        background: #a1a1a1;
+    }
+    .submit:active{
+        box-shadow: 0px 0px 0px #999999;
+    }
 </style>
 
 <form onsubmit="return validate(this)" method="POST">
