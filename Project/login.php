@@ -3,12 +3,12 @@ require(__DIR__ . "/../partials/nav.php");
 ?>
 <form onsubmit="return validate(this)" method="POST">
     <div>
-        <label for="email">Email</label>
-        <input type="email" name="email" required placeholder="email here"/>
+        <label for="email">Email/Login Name</label>
+        <input type="text" name="email" required />
     </div>
     <div>
         <label for="pw">Password</label>
-        <input type="password" id="pw" name="password" required minlength="8" placeholder="enter here"/>
+        <input type="password" id="pw" name="password" required minlength="8" />
     </div>
     <input type="submit" value="Login" />
 </form>
@@ -17,6 +17,8 @@ require(__DIR__ . "/../partials/nav.php");
         //TODO 1: implement JavaScript validation
         //ensure it returns false for an error and true for success
 
+        //TODO update clientside validation to check if it should
+        //valid email or username
         return true;
     }
 </script>
@@ -32,20 +34,28 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         flash("Email must not be empty");
         $hasError = true;
     }
-    //sanitize
-    //$email = filter_var($email, FILTER_SANITIZE_EMAIL);
-    $email = sanitize_email($email);
-    //validate
-    /*if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        flash("Invalid email address");
-        $hasError = true;
-    }*/
-    if (!is_valid_email($email)) {
-        flash("Invalid email address");
-        $hasError = true;
+//    if (str_contains($email, "@")) {
+    if (is_email($email)) {
+        //sanitize
+        //$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        $email = sanitize_email($email);
+        //validate
+        /*if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            flash("Invalid email address");
+            $hasError = true;
+        }*/
+        if (!is_valid_email($email)) {
+            flash("Invalid email address");
+            $hasError = true;
+        }
+    } else {
+        if (!is_valid_username($email)) {
+            flash("Invalid username");
+            $hasError = true;
+        }
     }
     if (empty($password)) {
-        flash("password must not be empty");
+        flash("Password must not be empty");
         $hasError = true;
     }
     if (!is_valid_password($password)) {
@@ -56,7 +66,8 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         //flash("Welcome, $email");
         //TODO 4
         $db = getDB();
-        $stmt = $db->prepare("SELECT id, email, logName, pwrdHash from User where email = :email");
+        $stmt = $db->prepare("SELECT id, email, logName, pwrdHash from User 
+        where email = :email or logName = :email");
         try {
             $r = $stmt->execute([":email" => $email]);
             if ($r) {
@@ -67,6 +78,18 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                     if (password_verify($password, $hash)) {
                         //flash("Weclome $email");
                         $_SESSION["user"] = $user; //sets our session data from db
+                        //lookup potential roles
+                        $stmt = $db->prepare("SELECT Roles.name FROM Roles 
+                        JOIN UserRoles on Roles.id = UserRoles.roleID 
+                        where UserRoles.userID = :userID and Roles.isActive = 1 and UserRoles.isActive = 1");
+                        $stmt->execute([":userID" => $user["id"]]);
+                        $roles = $stmt->fetchAll(PDO::FETCH_ASSOC); //fetch all since we'll want multiple
+                        //save roles or empty array
+                        if ($roles) {
+                            $_SESSION["user"]["roles"] = $roles; //at least 1 role
+                        } else {
+                            $_SESSION["user"]["roles"] = []; //no roles
+                        }
                         flash("Welcome, " . get_username());
                         die(header("Location: home.php"));
                     } else {
@@ -82,5 +105,5 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     }
 }
 ?>
-<?php 
-require(__DIR__."/../partials/flash.php");
+<?php
+require(__DIR__ . "/../partials/flash.php");
