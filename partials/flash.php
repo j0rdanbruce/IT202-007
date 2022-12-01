@@ -24,7 +24,11 @@
     moveMeUp(document.getElementById("flash"));
 </script>
 <style>
-    .alert-success {background-color: green;}
+    .alert-success {
+        background-color: green;
+        border-radius: 15px;
+        margin: 6px;
+    }
     .alert-warning {background-color: yellow;}
     .alert-danger {background-color: red;}
     .alert-info {background-color: teal;}
