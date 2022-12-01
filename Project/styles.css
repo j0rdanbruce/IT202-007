@@ -1,0 +1,42 @@
+.alert-success {
+    background-color: green;
+    border-radius:10px;
+}
+
+.alert-warning {
+    background-color: yellow;
+    border-radius:10px;
+}
+
+.alert-danger {
+    background-color: red;
+    border-radius:10px;
+}
+
+.alert-info {
+    background-color: teal;
+    border-radius:10px;
+}
+nav li{display: inline;}
+nav li a{color: hotpink}
+/*input{border-radius: 50%;}*/
+body{
+    background-color: white;
+    color: rgb(153, 0, 153);
+
+}
+
+input {
+    padding:10px;
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    border-radius:10px;
+    margin: 6px;
+}
+
+input[type=submit] {
+    background: #a1a1a1;
+}
+input[type=submit]:active{
+    box-shadow: 0px 0px 0px #999999;
+}
