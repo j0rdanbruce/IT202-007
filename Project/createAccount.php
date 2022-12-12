@@ -20,13 +20,21 @@ is_logged_in(true);
 
         if ($deposit < 10){
             flash("Initial deposit must be greater than $10", "warning");
+            $hasError = true;
         }
 
-        $db = getDB();
-        $stmt = $db->prepare("INSERT INTO Accounts (balance) VALUES(:email)");
+        if (!$hasError){
+            $db = getDB();
+            $stmt = $db->prepare("INSERT INTO Accounts (balance, ) VALUES(:deposit)");
+            try{
+                $stmt->execute([":deposit" => $email]);
+                die(header("Location: accounts.php"));
+                flash("Successfully Registered for Checking Account! '\n'Funds have been added to your checking account.", "success");
+            }catch (Exception $e) {
+                users_check_duplicate($e->errorInfo);
+            }
+        }
     }
-
-
 ?>
 
 <?php

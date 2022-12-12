@@ -1,9 +1,11 @@
 <?php
 require(__DIR__ . "/../partials/nav.php");
 is_logged_in(true);
+
+$username = get_username();
 ?>
 
-<h1>Deposit Funds:</h1>
+<h1>$username's Checking Account(s):</h1>
 
 <form onsubmit="return validate(this)" method="POST">
     <div>
