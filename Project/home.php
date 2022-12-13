@@ -15,7 +15,7 @@ if (is_logged_in(true)) {
         <ul>
             <?php if (is_logged_in()) : ?>
                 <li><a href="createAccount.php">Create Account</a></li>
-                <li><a href="myAccounts.php">My Accounts</a></li>
+                <li><a href="accounts.php">My Accounts</a></li>
                 <li><a href="deposit.php">Deposit</a></li>
                 <li><a href="withdraw.php">Withdraw</a></li>
                 <li><a href="profile.php">Profile</a></li>

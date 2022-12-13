@@ -18,10 +18,13 @@ $username = get_username();
 <?php
     if (isset($_POST["deposit"])){
         $deposit = se($_POST, "deposit", "", false);
+        $hasError = false;
+
+        if (!$hasError){
+
+        }
 
     }
-
-    //if (!$has)
 
 ?>
 
