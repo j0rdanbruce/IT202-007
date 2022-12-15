@@ -19,20 +19,22 @@ is_logged_in(true);
 
 <?php
     if (isset($_POST["deposit"])){
-        $deposit = se($_POST, "deposit", "", false);
-
+        $deposit = (int)se($_POST, "deposit", "", false);
         $hasError = false;
-
-        $num = rand(000000000001, 999999999999);
         $db = getDB();
-        $stmt = $db->prepare("SELECT accountNum FROM Account WHERE accountNum = $num)");
-        //$query = "SELECT accountNum FROM Account WHERE accountNum = $num";
-        //$result = $db->query($query);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        while ($result){
-            $num = rand(000000000001, 999999999999);
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $accntNum = randAccntGen(12);
+        $stmt = $db->prepare("SELECT accountNum FROM Account WHERE accountNum = :accountNum");
+        try{
+            $stmt->execute([":accountNum" => $accntNum]);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);    
+        }catch (Exception $e) {
+            users_check_duplicate($e->errorInfo);
+        }
+        
+        while (!empty($result)){
+            $accntNum = randAccntGen(12);
+            $stmt->execute([":accountNum" => $accntNum]);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         if ($deposit < 10){
@@ -41,15 +43,39 @@ is_logged_in(true);
         }
 
         if (!$hasError){
-            $stmt = $db->prepare("INSERT INTO Account (accountNum, balance, accountType) VALUES(:accountNum, :balance, :accountType)");
+            $stmt = $db->prepare("INSERT INTO Account (accountNum, userID, balance, accountType) VALUES(:accountNum, :userID, :balance, :accountType)");
             try{
-                $stmt->execute([":accountNum" => $num, ":balance" => $deposit, ":accountType" => "checking"]);
-                die(header("Location: accounts.php"));
-                flash("Successfully Registered for Checking Account! '\n'Funds have been added to your checking account.", "success");
+                $stmt->execute([":accountNum" => $accntNum, ":userID" => get_user_id(), ":balance" => $deposit, ":accountType" => "checking"]);
             }catch (Exception $e) {
                 users_check_duplicate($e->errorInfo);
             }
         }
+
+        //get current balance of world
+        if (!$hasError){
+            $stmt = $db->prepare("SELECT balance FROM Account WHERE userID = :userID");
+            try{
+                $stmt->execute([":userID" => -1]);
+                $result = $stmt->fetch(PDO::FETCH_OBJ);
+                $currentBalance = $result->balance;
+                var_dump((int)$currentBalance);
+            }catch(Exception $e){
+                users_check_duplicate($e->errorInfo);
+            }
+        }
+        
+        /*if (!$hasError){
+            $stmt = $db->prepare("INSERT INTO Transactions (accountSrc, accountDest, balanceChg, transType, memo, expectedTotal) 
+                                    VALUES (:accountSrc, :accountDest, :balanceChg, transType, :memo, :expectedTotal)");
+            try{
+                $stmt->execute([":accountSrc" => -1, ":accountDest" => get_user_id(), ":balanceChg" => (-1 * $deposit), 
+                                    ":transType" => "create", ":memo" => "", ":expectedTotal" => (-1 * $deposit)]);
+            }catch(Exception $e) {
+                users_check_duplicate($e->errorInfo);
+            }
+        }*/
+        flash("Successfully Registered for Checking Account! '\n'Funds have been added to your checking account.", "success");
+        //die(header("Location: accounts.php"));
     }
 ?>
 

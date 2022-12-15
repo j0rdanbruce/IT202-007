@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `Account`
 (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `accountNum` INT (12),
+    `accountNum` CHAR(12),
     `userID` INT,
     `balance` INT DEFAULT 0,
     `accountType` TEXT NOT NULL,

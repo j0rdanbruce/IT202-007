@@ -1,10 +1,15 @@
 <?php
 
-function randNumGen(){
-    $min = 000000000001;
-    $max = 999999999999;
-    //$num = Math.floor(Math.random() * (max - min + 1)) + min;
-    return $max;
+function randAccntGen($length_of_string)
+{
+ 
+    // String of all alphanumeric character
+    $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+ 
+    // Shuffle the $str_result and returns substring
+    // of specified length
+    return substr(str_shuffle($str_result),
+                       0, $length_of_string);
 }
 
 ?>
