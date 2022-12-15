@@ -96,7 +96,7 @@ is_logged_in(true);
             }
         }
         flash("Successfully Registered for Checking Account! '\nFunds have been added to your checking account.", "success");
-        //die(header("Location: accounts.php"));
+        die(header("Location: accounts.php"));
     }
 ?>
 
