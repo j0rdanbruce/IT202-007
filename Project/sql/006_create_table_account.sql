@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS `Account`
+(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `accountNum` CHAR(12),
+    `userID` INT,
+    `balance` INT DEFAULT 0,
+    `accountType` TEXT NOT NULL,
+    `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`userID`) REFERENCES User(`id`),
+    UNIQUE (`accountNum`)
+)
