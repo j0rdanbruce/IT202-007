@@ -34,7 +34,7 @@ __SubTask 1:__ Add one or more **screenshots** of the application showing the fo
 | [X] #1  | 1      | Show invalid email validation |
 | [ ] #2  | 1      | Show invalid password validation |
 | [ ] #3  | 1      | Show passwords not much validation |
-| [ ] #4  | 1      | Show email not available validation (already registered) |
+| [x ] #4  | 1      | Show email not available validation (already registered) |
 | [x] #5  | 1      | Show Login Name not available validation (logName is taken) |
 | [X] #6  | 1      | Show the form with valid data filled in before the form is submitted |
 
@@ -85,9 +85,9 @@ __SubTask 4:__ Explain briefly how the process/code works (to register)
 |    #     | Points | Details                                                  |
 | -------- | ------ | --------------------------------------------------------:|
 | [ x] #1  | 1       | Explain how the form is handled and behaves             |
-| [ ] #2  | 1       | Explain the validation logic (frontend and backend)     |
-| [ ] #3  | 1       | Explain how the password is handled                     |
-| [ ] #4  | 1       | Explain how the DB is utilized                          |
+| [x ] #2  | 1       | Explain the validation logic (frontend and backend)     |
+| [x ] #3  | 1       | Explain how the password is handled                     |
+| [x ] #4  | 1       | Explain how the DB is utilized                          |
 
 > #1:  the form accepts user input data for logName, email, and password. the data is then sent to the backend to check for validation of all the sent data. If all data passes the defined requirements then the person has successfully registered an account.
 
@@ -111,8 +111,8 @@ validation errors per the feature requirements
     
 |    #    | Points | Details        |
 | ------- | ------ | --------------:|
-| [ ] #1  | 1      | Show password mismatch validation (doesn't match what's in the DB) |
-| [ ] #2  | 1      | Show validation based on non-existing user |
+| [x ] #1  | 1      | Show password mismatch validation (doesn't match what's in the DB) |
+| [x ] #2  | 1      | Show validation based on non-existing user |
 
 <br>Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
@@ -153,8 +153,8 @@ __SubTask 4:__ Explain briefly how the process/code works (to login)
 | -------- | ------ | --------------------------------------------------------:|
 | [ x] #1  | 1       | Explain how the form is handled and behaves             |
 | [x ] #2  | 1       | Explain the validation logic (frontend and backend)     |
-| [ ] #3  | 1       | Explain how the password is handled                     |
-| [ ] #4  | 1       | Explain how the DB is utilized                          |
+| [ x] #3  | 1       | Explain how the password is handled                     |
+| [x ] #4  | 1       | Explain how the DB is utilized                          |
 
 > #1:  the html accepts form for email and password. The form data is sent to the backend. Created functions check ff the email and password match an existing username and password in the database. If one of the required login forms is not correct, the user cannot login succesfully.
 
@@ -503,6 +503,6 @@ __SubTask 3:__ Prod Application Link to Login Page. Link must be from the NJIT w
 
 #### Required url pattern: https?://web.njit.edu/.+-prod.*
 
-> URL: 
+> URL: https://web.njit.edu/~jeb79/jeb79-prod/Project/login.php
 
 </ul> </ul>
