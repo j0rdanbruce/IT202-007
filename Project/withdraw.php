@@ -9,7 +9,7 @@ is_logged_in(true);
     <div>
         <label for="account">Choose Account for Withdrawl:</label>
         <select name="account" id="account">
-            <option value="select account"></option>
+            <option value=""></option>
             <?php
                 $db = getDB();
                 $stmt = $db->prepare("SELECT accountNum, balance FROM Account WHERE userID = :userID");
@@ -36,25 +36,25 @@ is_logged_in(true);
 
 <?php
     if (isset($_POST["account"]) && isset($_POST["amount"])){
-        $hasError = false;
-        $db = getDB();
         $accountNum = se($_POST, "account", "", false);
         $amount = (int)se($_POST, "amount", "", false);
         if (isset($_POST["memo"])){
             $memo = se($_POST, "memo", "", false);
         }
-        echo $accountNum;
+        $hasError = false;
+        $db = getDB();
         //get current balance of world and get acocunt id for withdrawal
         if (!$hasError){
             $stmt = $db->prepare("SELECT balance FROM Account WHERE userID = :userID");
-            $stmt2 = $db->prepare("SELECT id FROM Account WHERE accountNum = :accountNum");
+            $stmt2 = $db->prepare("SELECT id FROM User WHERE email = :email");
             try{
                 $stmt->execute([":userID" => -1]);
                 $result = $stmt->fetch(PDO::FETCH_OBJ);
                 $currentBalance = (int)$result->balance;
-                $stmt2->execute([":accountNum"=>$accountNum]);
-                $result2 = $stmt2->fetch(PDO::FETCH_OBJ);
-                $accountId = $result2->id;
+                $stmt2->execute([":email"=>get_user_email()]);
+                $result = $stmt2->fetch(PDO::FETCH_OBJ);
+                //print_r($result);
+                $accountId = $result->id;
                 //echo $accountId;
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
@@ -70,7 +70,7 @@ is_logged_in(true);
         }
         /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
         /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
-        
+
         //create transaction pair for withdrawal
         if (!$hasError){
             $stmt1 = $db->prepare("INSERT INTO Transactions (accountSrc, accountDest, balanceChg, transType, memo, expectedTotal) 
