@@ -39,10 +39,11 @@ is_logged_in(true);
         $hasError = false;
         $db = getDB();
         $accountNum = se($_POST, "account", "", false);
-        $amount = se($_POST, "amount", "", false);
+        $amount = (int)se($_POST, "amount", "", false);
         if (isset($_POST["memo"])){
             $memo = se($_POST, "memo", "", false);
         }
+        echo $accountNum;
         //get current balance of world and get acocunt id for withdrawal
         if (!$hasError){
             $stmt = $db->prepare("SELECT balance FROM Account WHERE userID = :userID");
@@ -52,8 +53,9 @@ is_logged_in(true);
                 $result = $stmt->fetch(PDO::FETCH_OBJ);
                 $currentBalance = (int)$result->balance;
                 $stmt2->execute([":accountNum"=>$accountNum]);
-                $result = $stmt2->fetch(PDO::FETCH_OBJ);
-                $accountId = $result->id;
+                $result2 = $stmt2->fetch(PDO::FETCH_OBJ);
+                $accountId = $result2->id;
+                //echo $accountId;
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
             }
@@ -66,6 +68,9 @@ is_logged_in(true);
                 users_check_duplicate($e->errorInfo);
             }
         }
+        /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
+        /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
+        
         //create transaction pair for withdrawal
         if (!$hasError){
             $stmt1 = $db->prepare("INSERT INTO Transactions (accountSrc, accountDest, balanceChg, transType, memo, expectedTotal) 
@@ -81,8 +86,8 @@ is_logged_in(true);
             $stmt2 = $db->prepare("INSERT INTO Transactions (accountSrc, accountDest, balanceChg, transType, memo, expectedTotal) 
                                     VALUES (:accountSrc, :accountDest, :balanceChg, :transType, :memo, :expectedTotal)");
             try{
-                $stmt2->execute([":accountSrc" => get_user_id(), ":accountDest" => -1, ":balanceChg" => ($amount), 
-                                    ":transType" => "withdraw", ":memo" => "withdraw from account " . $accountId, ":expectedTotal" => ($deposit)]);
+                $stmt2->execute([":accountSrc" => get_user_id(), ":accountDest" => -1, ":balanceChg" => ($amount),
+                                    ":transType" => "withdraw", ":memo" => "withdraw from account " . $accountId, ":expectedTotal" => ($amount)]);
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
             }
