@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `Transaction`
+CREATE TABLE IF NOT EXISTS `Transactions`
 (
     `id` int not null auto_increment,
     `accountSrc` INT,
