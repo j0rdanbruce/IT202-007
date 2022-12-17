@@ -94,13 +94,15 @@ $username = get_username();
             }
             $db = getDB();
             //$stmt1 = $db->prepare("SELECT id FROM Account WHERE accountNum = :accountNum");
-            $stmt2 = $db->prepare("SELECT Account.id, accountNum, accountSrc, accountDest, transType, balanceChg, created, expectedTotal, memo 
-                                FROM Transactions INNER JOIN Account ON Transactions.
-                                WHERE accountSrc = :accountSrc OR accountNum = :accountNum2 LIMIT 12 OFFSET 0");
+            $stmt = $db->prepare("SELECT Account.id, Transactions.accountNum, Transactions.accountSrc, Transactions.accountDest, Transactions.transType, 
+                                            Transactions.balanceChg, Transactions.created, Transactions.expectedTotal, Transactions.memo 
+                                FROM Transactions LEFT JOIN Account ON Transactions.accountSrc = Account.id
+                                WHERE accountNum = :accountNum LIMIT 12 OFFSET 0");
             try{
-                //$result = $stmt1->execute([":accountNum"=>$accountNum]);
+                //$result = $stmt->execute([":accountNum"=>$accountNum]);
                 //$id = $result->id;
-                $result = $stmt2->execute();
+                $result = $stmt->execute([":accountNum"=>$accountNum]);
+                var_dump($result);
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
             }
