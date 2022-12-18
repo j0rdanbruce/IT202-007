@@ -131,6 +131,103 @@ is_logged_in(true);
         }
     }
 ?>
+<br>
+
+<h1><?php echo get_username(); ?>'s Checking Account(s):</h1>
+
+<table border="1">
+        <tr>
+            <th>Account Number</th>
+            <th>Account Type</th>
+            <th>Modified Date</th>
+            <th>Current Balance</th>
+        </tr>
+        <?php
+            $db = getDB();
+            $stmt = $db->prepare("SELECT accountNum, accountType, modified, balance FROM Account WHERE userID = :userID LIMIT 4 OFFSET 0");
+            $stmt->execute([":userID"=>get_user_id()]);
+            while ($result = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $accountNum = $result["accountNum"];
+                $accountType = $result["accountType"];
+                $modified = $result["modified"];
+                $balance = $result["balance"];  
+            
+        ?>
+        <tr>
+            <td>
+                <form onsubmit="return validate(this)" method="POST">
+                    <input type="submit" value="<?php echo $accountNum; ?>" name="accountNum" >
+                </form>
+            </td>
+            <td><?php echo $accountType; ?></td>
+            <td><?php echo $modified; ?></td>
+            <td><?php echo $balance; ?></td>
+        </tr>
+        <?php }; ?>
+</table>
+
+<h1>Internal Transaction History</h1>
+
+<form onsubmit="return validate(this)" method="POST">
+    <div>
+        <label for="date">Search History by Date:</label>
+
+        <input type="date" name="startDate"/>
+        <label for="-"> - </label>
+        <input type="date" name="endDate">
+    </div>
+    <div>
+        <label for="type">Search History by type of transaction:</label>
+        <select name="type" id="type">
+            <option value=""></option>
+            <option value="deposit">deposit</option>
+            <option value="withdraw">withdraw</option>
+            <option value="transfer">transfer</option>
+        </select>
+    </div>
+
+    <input type="submit" value="Submit" />
+</form>
+
+<table border="1">
+        <tr>
+            <th>Account Source</th>
+            <th>Account Destination</th>
+            <th>Transaction Type</th>
+            <th>Balance</th>
+            <th>Occured On</th>
+        </tr>
+        <?php
+            //grabbing ids of all checking accounts of this user
+            $db = getDB();
+            $stmt = $db->prepare("SELECT id, accountNum FROM Account WHERE userID = :userID");
+            $stmt2 = $db->prepare("SELECT accountSrc, accountDest, balanceChg, transType, memo, expectedTotal, created
+                                    FROM Transactions 
+                                    WHERE accountSrc = :account
+                                    LIMIT 12 OFFSET 0");
+            try{
+                $stmt->execute([":userID"=>get_user_id()]);
+                while($result = $stmt->fetch(PDO::FETCH_OBJ)){
+                    $accountId = (int)$result->id;
+                    //echo $accountId;
+                    $stmt2->execute([":account"=>$accountId]);
+                    $result2 = $stmt2->fetch(PDO::FETCH_OBJ);
+                    //$accountSrc = (int)$result2->accountSrc;
+                    //echo $accountSrc;
+        ?>
+        <tr>
+            <td><?php echo $accountType; ?></td>
+            <td><?php echo $modified; ?></td>
+            <td><?php echo $balance; ?></td>
+        </tr>
+            <?php
+            }
+                }catch(Exception $e){
+                    users_check_duplicate($e->errorInfo);
+                }  
+            ?>
+    
+</table>
 
 
 
