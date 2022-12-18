@@ -18,7 +18,7 @@ is_logged_in(true);
                     $accountNum = $result['accountNum'];
                     $balance = $result['balance'];
             ?>
-            <option value=""> <?php echo $accountNum . " : " . $balance; ?> </option>
+            <option value="<?php $accountNum ?>"> <?php echo $accountNum . " : " . $balance; ?> </option>
             <?php } ?>
         </select>
     </div>
@@ -38,6 +38,7 @@ is_logged_in(true);
     if (isset($_POST["account"]) && isset($_POST["amount"])){
         $accountNum = se($_POST, "account", "", false);
         $amount = (int)se($_POST, "amount", "", false);
+        echo $accountNum;
         if (isset($_POST["memo"])){
             $memo = se($_POST, "memo", "", false);
         }
@@ -69,6 +70,9 @@ is_logged_in(true);
             }
         }
         /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
+        if ($hasError){
+            
+        }
         /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
 
         //create transaction pair for withdrawal
