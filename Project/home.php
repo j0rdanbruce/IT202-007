@@ -10,6 +10,9 @@ if (is_logged_in(true)) {
 }
 ?>
 
+<?php 
+    //jeb79     date: 12/18/22
+?>
 <div class="center-screen">
     <nav>
         <ul>
