@@ -18,7 +18,7 @@ is_logged_in(true);
                     $accountNum = $result['accountNum'];
                     $balance = $result['balance'];
             ?>
-            <option value=""> <?php echo $accountNum . " : " . $balance; ?> </option>
+            <option value="<?php echo $accountNum;?>"> <?php echo $accountNum . " : " . $balance; ?> </option>
             <?php } ?>
         </select>
     </div>
@@ -37,58 +37,60 @@ is_logged_in(true);
 <?php
     if (isset($_POST["account"]) && isset($_POST["amount"])){
         $accountNum = se($_POST, "account", "", false);
+        $worldAccount = "000000000000";
         $amount = (int)se($_POST, "amount", "", false);
+        //echo $accountNum;
         if (isset($_POST["memo"])){
             $memo = se($_POST, "memo", "", false);
         }
         $hasError = false;
         $db = getDB();
-        //get current balance of world and get acocunt id for withdrawal
+        //check for sufficient funds
         if (!$hasError){
-            $stmt = $db->prepare("SELECT balance FROM Account WHERE userID = :userID");
-            $stmt2 = $db->prepare("SELECT id FROM User WHERE email = :email");
-            try{
-                $stmt->execute([":userID" => -1]);
-                $result = $stmt->fetch(PDO::FETCH_OBJ);
-                $currentBalance = (int)$result->balance;
-                $stmt2->execute([":email"=>get_user_email()]);
-                $result = $stmt2->fetch(PDO::FETCH_OBJ);
-                //print_r($result);
-                $accountId = $result->id;
-                //echo $accountId;
-            }catch(Exception $e){
-                users_check_duplicate($e->errorInfo);
+            $stmt = $db->prepare("SELECT accountNum, balance FROM Account WHERE accountNum = :account");
+            $stmt->execute([":account"=>$accountNum]);
+            $result = $stmt->fetch(PDO::FETCH_OBJ);
+            $currentBalance = $result->balance;
+            if ($amount < 0){
+                $hasError = true;
+                flash("Cannot deposit a negative amount", "warning");
             }
-            //update balance of world
-            $updateBalance = $currentBalance - $amount;
-            $stmt = $db->prepare("UPDATE Account SET balance = :balance WHERE userID = :userID");
+        }
+        //grabbing ids and updating balances of respective accounts
+        if (!$hasError){
+            $stmt1 = $db->prepare("SELECT id, accountNum, balance FROM Account WHERE accountNum = :account");
+            $stmt2 = $db->prepare("UPDATE Account SET balance = :balance WHERE accountNum = :account");
             try{
-                $stmt->execute([":balance"=>$updateBalance, ":userID"=>-1]);
+                $stmt1->execute([":account"=>$accountNum]);
+                $result = $stmt1->fetch(PDO::FETCH_OBJ);
+                $depositID = (int)$result->id;
+                $currentDBalance = (int)$result->balance;
+                //echo $currentWBalance;
+                $stmt1->execute([":account"=>$worldAccount]);
+                $result = $stmt1->fetch(PDO::FETCH_OBJ);
+                $currentWorldBalance = (int)$result->balance;
+                $updatedDBalance = $currentBalance + $amount;
+                $updatedWorldBalance = $currentWorldBalance - $amount;
+                //echo "updated withdraw balance is " . $updatedWBalance;
+                //echo "updated world balance is " . $updatedWorldBalance;
+                $stmt2->execute([":balance"=>$updatedDBalance, ":account"=>$accountNum]);
+                $stmt2->execute([":balance"=>$updatedWorldBalance, ":account"=>$worldAccount]);
+                flash("successfully deposited funds to Account Number: " . $accountNum, "success");
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
             }
         }
-        /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
-        /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
-
-        //create transaction pair for deposit
+        //make transaction pair
         if (!$hasError){
             $stmt1 = $db->prepare("INSERT INTO Transactions (accountSrc, accountDest, balanceChg, transType, memo, expectedTotal) 
                                     VALUES (:accountSrc, :accountDest, :balanceChg, :transType, :memo, :expectedTotal)");
             try{
-                $stmt1->execute([":accountSrc" => -1, ":accountDest" => get_user_id(), ":balanceChg" => (-1 * $amount), 
-                                    ":transType" => "deposit", ":memo" => "", ":expectedTotal" => ($updateBalance)]);
+                $stmt1->execute([":accountSrc" => -1, ":accountDest" => $depositID, ":balanceChg" => (-1 * $amount), 
+                                    ":transType" => "deposit", ":memo" => "", ":expectedTotal" => ($updatedWorldBalance)]);
+                $stmt1->execute([":accountSrc" => $depositID, ":accountDest" => -1, ":balanceChg" => ($amount), 
+                                    ":transType" => "deposit", ":memo" => "deposit to acct" . $depositID, 
+                                    ":expectedTotal" => ($updatedDBalance)]);
             }catch(Exception $e) {
-                users_check_duplicate($e->errorInfo);
-            }
-        }
-        if (!$hasError){
-            $stmt2 = $db->prepare("INSERT INTO Transactions (accountSrc, accountDest, balanceChg, transType, memo, expectedTotal) 
-                                    VALUES (:accountSrc, :accountDest, :balanceChg, :transType, :memo, :expectedTotal)");
-            try{
-                $stmt2->execute([":accountSrc" => get_user_id(), ":accountDest" => -1, ":balanceChg" => ($amount),
-                                    ":transType" => "deposit", ":memo" => "deposit to account " . $accountId, ":expectedTotal" => ($amount)]);
-            }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
             }
         }
