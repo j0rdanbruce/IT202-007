@@ -55,15 +55,18 @@ is_logged_in(true);
         $wAccountNum = strval($_POST["wAccount"]);
         $dAccountNum = se($_POST, "dAccount", "", false);
         $amount = (int)se($_POST, "amount", "", false);
-        //var_dump($wAccountNum);
-        //echo $dAccountNum;
         if (isset($_POST["memo"])){
             $memo = se($_POST, "memo", "", false);
         }
         //echo $memo;
         $hasError = false;
         $db = getDB();
-
+        
+        //cant transfer to same account
+        if ($wAccountNum == $dAccountNum){
+            $hasError = true;
+            flash("Can not transfer funds to same account", "warning");
+        }
         if (!$hasError){
             //check if transfer amount is more than the withdraw account balance
             $stmt = $db->prepare("SELECT id, accountNum, balance FROM Account WHERE accountNum = :accountNum");
@@ -81,6 +84,7 @@ is_logged_in(true);
                     $hasError = true;
                     flash("Unable to transferr a negative dollar amount", "warning");
                 }
+                
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
             }
