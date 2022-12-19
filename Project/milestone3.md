@@ -64,7 +64,8 @@ __SubTask 4:__ Add a **screenshot** showing user can't transfer to the same acco
 
 ### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [before submission](https://user-images.githubusercontent.com/95323815/208542576-63296608-ad08-4e93-abde-4760ee4ca13e.png)      
+        [after submission](https://user-images.githubusercontent.com/95323815/208542517-38e97d60-a81a-4186-b680-e43a82701f27.png)
 
 </ul>
 
@@ -83,7 +84,8 @@ __SubTask 5:__ Add a **screenshot** showing you can't transfer an negative balan
 
 ### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [before data submission](https://user-images.githubusercontent.com/95323815/208542803-cfd7104e-d131-4069-80da-f9a1f48155cf.png)     
+    [after data submission](https://user-images.githubusercontent.com/95323815/208542839-64f702a1-98f0-4f3d-8b96-0bd58980b27c.png)
 
 </ul>
 
@@ -102,7 +104,8 @@ __SubTask 6:__ Add a **screenshot** of the generated transaction history from th
 
 ### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [left side of DB](https://user-images.githubusercontent.com/95323815/208544168-ae151d4d-06e3-40c8-b08b-7a6c42fbed64.png)        
+[right side you cant see screen too small to fit all of it](https://user-images.githubusercontent.com/95323815/208544280-9408262c-a92c-4c65-a32d-f7b62a496260.png)
 
 </ul>
 
@@ -121,7 +124,11 @@ __SubTask 7:__ Add a **screenshot** of the Accounts table showing both affected 
 
 ### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [account withdrawn from before submission](https://user-images.githubusercontent.com/95323815/208545477-52aeacee-4e8b-47f0-83ea-d70dec969e32.png)       
+[account withdranw from after submission](https://user-images.githubusercontent.com/95323815/208545680-e36efa7a-298e-436c-a094-9999ffb9e5cf.png)        
+[account transferred to before submission](https://user-images.githubusercontent.com/95323815/208545562-b578a094-5dc4-471f-950d-1c2ff734566a.png)       
+[account transferred to after submission](https://user-images.githubusercontent.com/95323815/208545711-ca9a60b3-e1c2-4986-9e49-66688df7f31c.png)        
+[transaction form proof](https://user-images.githubusercontent.com/95323815/208545631-dba759cc-3f0b-4bcc-8df2-31c2ccc610cb.png)
 
 </ul>
 
@@ -129,7 +136,12 @@ __SubTask 8:__ Briefly explain the code process/flow of a transfer including how
 
 <ul>
 
-> Explanation:  
+> Explanation:  1) create a form with input types for withdraw account, transfer to account, dollar amount, and memo.   
+    2)use "isset()" function and se() function to grab the data from the forms under $_POST using the name="" attribute from data forms filled out by user  
+    3) select the respective acocunt number by assigning variables to account numbers that was grabbed from form table.     
+    4)make a query select statement to pull account information for id number, balance, etc for both accounts.      
+    5)check for negative transfer amount, etc. once verified, create a query statement for execution of UPDATE.     
+    6) flash message to show completion of trasnfer and relocate user to checking acocunts page
 
 </ul>
 
@@ -139,7 +151,7 @@ __SubTask 9:__ Add the related pull request(s)
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/pull/45/commits/fb36d1179673a2e73e9c63094e34ffa884950808
 
 </ul>
 
@@ -149,7 +161,7 @@ __SubTask 10:__ Add a direct link to the NJIT webserver prod URL
 
 #### Required url pattern: https?://web.njit.edu/~.+-prod/*
 
-> URL(s): 
+> URL(s): https://web.njit.edu/~jeb79/jeb79-prod/Project/internalTransfer.php
 
 </ul></ul>
 
@@ -162,7 +174,7 @@ __SubTask 1:__ Add a **screenshot** of transaction history page showing the new 
 
 #### Make sure if the  **screenshot**  contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:  
+> Screenshot:  [transaction history table. you are able to select a specific account to view recent transaction history of clicked on account. can select restraints to sepcify query search](https://user-images.githubusercontent.com/95323815/208547306-be563464-b3f7-42df-9cfc-a3c4a582593e.png)
 
 </ul>
 
@@ -172,7 +184,10 @@ __SubTask 2:__ Add **screenshot(s)** demonstrating the filters and pagination. C
 
 ### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot(s):   
+> Screenshot(s):   [selecting transaction history of specific account only made on December 18, 2022](https://user-images.githubusercontent.com/95323815/208547586-bd5fd525-6bd2-445c-8105-3d5224b38e93.png)        
+[selecting transaction history of same account but only trnasactions made on december 19, 2022](https://user-images.githubusercontent.com/95323815/208547709-3b1db4be-25c7-4b52-b736-cc8efa515154.png)      
+[could not figure out how to get the wuery statement for select by transaction type. here is code of my work](https://user-images.githubusercontent.com/95323815/208548001-49ba8bdf-1f19-42b4-b2d4-5dc29aac3c06.png)        
+[more code for transaction type selection](https://user-images.githubusercontent.com/95323815/208548071-68fe62f1-0723-457d-becd-da88e1610f88.png)
 
 </ul>
 
@@ -180,7 +195,7 @@ __SubTask 3:__ Briefly explain how the filters/pagination work
 
 <ul>
 
-> Explanation:  
+> Explanation:  the user makes fills out form data for selecting which account to see transaction history. the form data is generated when user clicks on the account specified. the form data for date and transaction type are optional. results will be generated with or without date and/or type data. the php script grabs and assigns form data to variables using isset() and se() functions. then database queries are made to pull up tranasction history of specifiec account numerb whose account destination and account source belong to that same checking account selected. query statement is executed and data is displayed limiting to 12 on a table.
 
 </ul>
 
@@ -190,7 +205,7 @@ __SubTask 4:__ Add the related pull request link(s)
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/commit/bdd16271289cab095963e4370169eed7e66696e9
 
 </ul>
 
@@ -200,7 +215,7 @@ __SubTask 5:__ Add the URL to the Transaction History page on the NJIT webserver
 
 #### Required url pattern: https?://web.njit.edu/~.+-prod/*
 
-> URL(s): 
+> URL(s): https://web.njit.edu/~jeb79/jeb79-prod/Project/accounts.php
 
 </ul></ul>
 

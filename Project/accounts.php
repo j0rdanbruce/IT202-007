@@ -132,6 +132,7 @@ $username = get_username();
                 $accountNum = strval(se($_POST, "accountNum", "", false));
                 //echo $accountNum;
             }
+            //jeb79             date: 12/19/22
             $typeFlag = false;
             $db = getDB();
             $stmt = $db->prepare("SELECT id, accountNum FROM Account WHERE accountNum = :accountNum");
@@ -163,7 +164,7 @@ $username = get_username();
                                 WHERE accountSrc = :accountSrc OR accountDest = :accountDest
                                 LIMIT 12 OFFSET 0");
             }
-            
+            //jeb79         date:12/19/2022
             try{
                 $stmt->execute([":accountNum"=>$accountNum]);
                 $result = $stmt->fetch(PDO::FETCH_OBJ);
