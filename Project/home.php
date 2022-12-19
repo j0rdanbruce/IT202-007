@@ -23,6 +23,7 @@ if (is_logged_in(true)) {
                 <li><a href="withdraw.php">Withdraw</a></li>
                 <li><a href="profile.php">Profile</a></li>
                 <li><a href="internalTransfer.php">Internal Transfers</a></li>
+                <li><a href="externalTransfer.php">External Transfers</a></li>
 
             <?php endif; ?>
             <?php if (!is_logged_in()) : ?>
