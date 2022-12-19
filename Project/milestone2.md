@@ -388,7 +388,7 @@ __SubTask 9:__ Add a direct link to NJIT's webserver prod for this file
 
 #### Required url pattern: https?://web.njit.edu/~.+-prod/*
 
-> URL(s): 
+> URL(s): https://web.njit.edu/~jeb79/jeb79-prod/Project/withdraw.php
 
 </ul></ul>
 
@@ -413,7 +413,7 @@ __SubTask 1:__ Add **screenshots** showing which issues are done/closed (project
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot(s):
+> Screenshot(s):[project board: I was having trouble in the transaction history portion of the accounts list feature. I was able to grab the accountNumber from the form data. But I was having trouble making a query select statement for all the transaction pairs that included the addount number ID. For withdraw and deposit, I still am having trouble actually updating the account after the intial withdraw or deposit takes place.](https://user-images.githubusercontent.com/95323815/208341863-dc96480f-1602-40c7-a86d-0ade7bb59db2.png)
 
 </ul>
 
@@ -423,6 +423,8 @@ __SubTask 2:__ Add a link to your NJIT webserver prod projects login page
 
 #### Required url pattern: https?://web.njit.edu/.+-prod.*
 
-> URL: 
+> URL: https://web.njit.edu/~jeb79/jeb79-prod/Project/login.php
+
+[not sure if you already made an account for my website, but the register feature is not working now for some reason. I can prove that my login feature works in my presentation though.]
 
 </ul></ul>
