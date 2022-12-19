@@ -32,11 +32,12 @@ reset_session();
 </script>
 <?php
 //TODO 2: add PHP Code
-if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"]) && isset($_POST["username"])) {
+if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"]) && isset($_POST["logName"])) {
     $email = se($_POST, "email", "", false);
     $password = se($_POST, "password", "", false);
     $confirm = se($_POST, "confirm", "", false);
-    $username = se($_POST, "username", "", false);
+    $username = se($_POST, "logName", "", false);
+    //echo $email;
     //TODO 3
     $hasError = false;
     if (empty($email)) {
