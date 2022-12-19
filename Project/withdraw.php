@@ -97,6 +97,8 @@ is_logged_in(true);
             }catch(Exception $e) {
                 users_check_duplicate($e->errorInfo);
             }
+            flash("Successfully withdrew $" . $amount, "success");
+            die(header("Location: accounts.php"));
         }
     }
     

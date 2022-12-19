@@ -93,6 +93,7 @@ is_logged_in(true);
             }catch(Exception $e) {
                 users_check_duplicate($e->errorInfo);
             }
+            die(header("Location: accounts.php"));
         }
     }
     

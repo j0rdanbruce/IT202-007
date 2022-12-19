@@ -75,7 +75,11 @@ is_logged_in(true);
                 //echo "account id is " . $id;
                 if ($balance < $amount){
                     $hasError = true;
-                    flash("withdraw amount is greater than whats in withdrawal account", "warning");
+                    flash("Withdraw amount is greater than whats in withdrawal account. Unable to transfer funds.", "warning");
+                }
+                if ($amount < 0){
+                    $hasError = true;
+                    flash("Unable to transferr a negative dollar amount", "warning");
                 }
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
@@ -110,7 +114,7 @@ is_logged_in(true);
                 $updatedDBalance = $currentDBalance + $amount;
                 $stmt4->execute([":balance"=>$updatedWBalance, ":account"=>$wAccountNum]);
                 $stmt4->execute([":balance"=>$updatedDBalance, ":account"=>$dAccountNum]);
-                flash("successfully transferred funds", "success");
+
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
             }
@@ -121,13 +125,14 @@ is_logged_in(true);
                                     VALUES (:accountSrc, :accountDest, :balanceChg, :transType, :memo, :expectedTotal)");
             try{
                 $stmt1->execute([":accountSrc" => $withdrawID, ":accountDest" => $depositID, ":balanceChg" => (-1 * $amount), 
-                                    ":transType" => "internal transfer", ":memo" => "", ":expectedTotal" => ($updatedWBalance)]);
+                                    ":transType" => "transfer", ":memo" => "", ":expectedTotal" => ($updatedWBalance)]);
                 $stmt1->execute([":accountSrc" => $depositID, ":accountDest" => $withdrawID, ":balanceChg" => ($amount), 
-                                    ":transType" => "transfer", ":memo" => "trans to acct" . $depositID . " from acct" . $withdrawID, 
+                                    ":transType" => "transfer", ":memo" => "internal trans to acct" . $depositID . " from acct" . $withdrawID, 
                                     ":expectedTotal" => ($updatedDBalance)]);
             }catch(Exception $e) {
                 users_check_duplicate($e->errorInfo);
             }
+            flash("Successfully transferred $" . $amount . " to " . $dAccountNum, "success");
         }
     }
 ?>
@@ -165,16 +170,24 @@ is_logged_in(true);
         </tr>
         <?php }; ?>
 </table>
+<br><br>
 
-<h1>Internal Transaction History</h1>
+<h1>
+    <?php 
+        if (isset($_POST["accountNum"])){
+            $accountNum = strval(se($_POST, "accountNum", "", false));
+            echo "Internal Transaction History for Account Number: " . $accountNum;
+        }
+    ?>
+</h1>
 
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="date">Search History by Date:</label>
-
-        <input type="date" name="startDate"/>
+        
+        <input type="date" value="" name="startDate"/>
         <label for="-"> - </label>
-        <input type="date" name="endDate">
+        <input type="date" value="" name="endDate">
     </div>
     <div>
         <label for="type">Search History by type of transaction:</label>
@@ -189,45 +202,87 @@ is_logged_in(true);
     <input type="submit" value="Submit" />
 </form>
 
-<table border="1">
-        <tr>
-            <th>Account Source</th>
-            <th>Account Destination</th>
-            <th>Transaction Type</th>
-            <th>Balance</th>
-            <th>Occured On</th>
-        </tr>
-        <?php
-            //grabbing ids of all checking accounts of this user
-            $db = getDB();
-            $stmt = $db->prepare("SELECT id, accountNum FROM Account WHERE userID = :userID");
-            $stmt2 = $db->prepare("SELECT accountSrc, accountDest, balanceChg, transType, memo, expectedTotal, created
-                                    FROM Transactions 
-                                    WHERE accountSrc = :account
-                                    LIMIT 12 OFFSET 0");
-            try{
-                $stmt->execute([":userID"=>get_user_id()]);
-                while($result = $stmt->fetch(PDO::FETCH_OBJ)){
-                    $accountId = (int)$result->id;
-                    //echo $accountId;
-                    $stmt2->execute([":account"=>$accountId]);
-                    $result2 = $stmt2->fetch(PDO::FETCH_OBJ);
-                    //$accountSrc = (int)$result2->accountSrc;
-                    //echo $accountSrc;
-        ?>
-        <tr>
-            <td><?php echo $accountType; ?></td>
-            <td><?php echo $modified; ?></td>
-            <td><?php echo $balance; ?></td>
-        </tr>
+<div>
+        <table border="1">
+            <tr>
+                <td>Account Source</td>
+                <td>Account Destination</td>
+                <td>balance change</td>
+                <td>Transaction Type</td>
+                <td>Memo</td>
+                <td>Expected Total</td>
+                <td>Created On</td>
+            </tr>
             <?php
+            //where the transaction history will be shown. grab account id of specifiec account num
+            //make query statement to retrieve all rows with actSrc = account id or actDest = account id
+            if (isset($_POST["accountNum"])){
+                $accountNum = strval(se($_POST, "accountNum", "", false));
+                //echo $accountNum;
             }
-                }catch(Exception $e){
-                    users_check_duplicate($e->errorInfo);
-                }  
+            $db = getDB();
+            $stmt = $db->prepare("SELECT id, accountNum FROM Account WHERE accountNum = :accountNum");
+            if (isset($_POST["startDate"]) && isset($_POST["endDate"])){
+                $startDate = se($_POST, "startDate", "", false);
+                $endDate = se($_POST, "endDate", "", false);
+                //echo $startDate;
+                $stmt2 = $db->prepare("SELECT accountSrc, accountDest, balanceChg, transType, memo, 
+                                    expectedTotal, created 
+                                    FROM Transactions
+                                    WHERE (created >= '$startDate%' AND created <= '$endDate%')
+                                    AND (accountSrc = :accountSrc OR accountDest = :accountDest)
+                                    LIMIT 12 OFFSET 0");
+            }elseif (isset($_POST["type"])) {
+                $transType = se($_POST, "type", "", false);
+                $stmt2 = $db->prepare("SELECT accountSrc, accountDest, balanceChg, transType, memo, 
+                                    expectedTotal, created 
+                                    FROM Transactions
+                                    WHERE transType = '$transType'
+                                    AND accountSrc = :accountSrc OR accountDest = :accountDest
+                                    LIMIT 12 OFFSET 0");
+            }
+            else{
+                $stmt2 = $db->prepare("SELECT accountSrc, accountDest, balanceChg, transType, memo, expectedTotal, created 
+                                FROM Transactions
+                                WHERE accountSrc = :accountSrc OR accountDest = :accountDest
+                                LIMIT 12 OFFSET 0");
+            }
+            
+            try{
+                $stmt->execute([":accountNum"=>$accountNum]);
+                $result = $stmt->fetch(PDO::FETCH_OBJ);
+                $id = (int)$result->id;
+                //echo $id;
+                $stmt2->execute([":accountSrc"=>$id, ":accountDest"=>$id]);
+                while($result = $stmt2->fetch(PDO::FETCH_OBJ)){
+                    $accountSrc = $result->accountSrc;
+                    $accountDest = $result->accountDest;
+                    $balanceChg = $result->balanceChg;
+                    $transType = $result->transType;
+                    $memo = $result->memo;
+                    $expectedTotal = $result->expectedTotal;
+                    $created = $result->created;
+                ?>
+
+                <tr>
+                    <td><?php echo $accountSrc;?></td>
+                    <td><?php echo $accountDest;?></td>
+                    <td><?php echo $balanceChg;?></td>
+                    <td><?php echo $transType;?></td>
+                    <td><?php echo $memo;?></td>
+                    <td><?php echo $expectedTotal;?></td>
+                    <td><?php echo $created;?></td>
+                </tr>
+                <?php
+                }
+                
+            }catch(Exception $e){
+                users_check_duplicate($e->errorInfo);
+            }
             ?>
-    
-</table>
+
+        </table>
+    </div>
 
 
 

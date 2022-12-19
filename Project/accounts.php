@@ -21,6 +21,7 @@ $username = get_username();
             <th>Modified Date</th>
             <th>Current Balance</th>
         </tr>
+        
         <?php
             $db = getDB();
             $stmt = $db->prepare("SELECT accountNum, accountType, modified, balance FROM Account WHERE userID = :userID LIMIT 4 OFFSET 0");
@@ -79,7 +80,7 @@ $username = get_username();
         <tr>
             <td><?php echo $accountNum; ?></td>
             <td><?php echo $accountType; ?></td>
-            <td><?php echo $balance; ?></td>
+            <td>$<?php echo $balance; ?></td>
             <td><?php echo $created; ?></td>
         </tr>
         <?php
@@ -89,6 +90,30 @@ $username = get_username();
         ?>
     </table>
     <br><br><br>
+
+<form onsubmit="return validate(this)" method="POST">
+    <div>
+        <label for="date">Search History by Date:</label>
+        
+        <input type="datetime-local" value="" name="startDate"/>
+        <label for="-"> - </label>
+        <input type="datetime-local" value="" name="endDate">
+    </div>
+    <div>
+        <label for="type">Search History by type of transaction:</label>
+        
+        <select name="type" id="type">
+            <option value=""></option>
+            <option value="deposit">deposit</option>
+            <option value="withdraw">withdraw</option>
+            <option value="transfer">transfer</option>
+        </select>
+    </div>
+
+    <input type="submit" value="Submit" />
+</form>
+<br><br>
+
     <div>
         <table border="1">
             <tr>
@@ -107,18 +132,49 @@ $username = get_username();
                 $accountNum = strval(se($_POST, "accountNum", "", false));
                 //echo $accountNum;
             }
+            $typeFlag = false;
             $db = getDB();
             $stmt = $db->prepare("SELECT id, accountNum FROM Account WHERE accountNum = :accountNum");
-            $stmt2 = $db->prepare("SELECT accountSrc, accountDest, balanceChg, transType, memo, expectedTotal, created 
+            if (isset($_POST["startDate"]) && isset($_POST["endDate"])){
+                $startDate = se($_POST, "startDate", "", false);
+                $endDate = se($_POST, "endDate", "", false);
+                //echo $startDate;
+                $stmt2 = $db->prepare("SELECT accountSrc, accountDest, balanceChg, transType, memo, 
+                                    expectedTotal, created 
+                                    FROM Transactions
+                                    WHERE (created >= '$startDate%' AND created <= '$endDate%')
+                                    AND (accountSrc = :accountSrc OR accountDest = :accountDest)
+                                    LIMIT 12 OFFSET 0");
+            }elseif (isset($_POST["type"])) {
+                //echo "here";
+                $typeFlag = true;
+                $transType = se($_POST, "type", "", false);
+                echo $transType;
+                $stmt2 = $db->prepare("SELECT accountSrc, accountDest, balanceChg, transType, memo, 
+                                    expectedTotal, created 
+                                    FROM Transactions
+                                    WHERE (transType = :transType)
+                                    AND (accountSrc = :accountSrc OR accountDest = :accountDest)
+                                    LIMIT 12 OFFSET 0");
+            }
+            else{
+                $stmt2 = $db->prepare("SELECT accountSrc, accountDest, balanceChg, transType, memo, expectedTotal, created 
                                 FROM Transactions
                                 WHERE accountSrc = :accountSrc OR accountDest = :accountDest
                                 LIMIT 12 OFFSET 0");
+            }
+            
             try{
                 $stmt->execute([":accountNum"=>$accountNum]);
                 $result = $stmt->fetch(PDO::FETCH_OBJ);
                 $id = (int)$result->id;
                 //echo $id;
-                $stmt2->execute([":accountSrc"=>$id, ":accountDest"=>$id]);
+                if ($typeFlag){
+                    $stmt2->execute([":transType"=>$transType, ":accountSrc"=>$id, ":accountDest"=>$id]);
+                }else{
+                    $stmt2->execute([":accountSrc"=>$id, ":accountDest"=>$id]);
+                }
+                //$stmt2->execute([":accountSrc"=>$id, ":accountDest"=>$id]);
                 while($result = $stmt2->fetch(PDO::FETCH_OBJ)){
                     $accountSrc = $result->accountSrc;
                     $accountDest = $result->accountDest;
