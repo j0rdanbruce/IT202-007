@@ -121,7 +121,7 @@ is_logged_in(true);
                                     VALUES (:accountSrc, :accountDest, :balanceChg, :transType, :memo, :expectedTotal)");
             try{
                 $stmt1->execute([":accountSrc" => $withdrawID, ":accountDest" => $depositID, ":balanceChg" => (-1 * $amount), 
-                                    ":transType" => "transfer", ":memo" => "", ":expectedTotal" => ($updatedWBalance)]);
+                                    ":transType" => "internal transfer", ":memo" => "", ":expectedTotal" => ($updatedWBalance)]);
                 $stmt1->execute([":accountSrc" => $depositID, ":accountDest" => $withdrawID, ":balanceChg" => ($amount), 
                                     ":transType" => "transfer", ":memo" => "trans to acct" . $depositID . " from acct" . $withdrawID, 
                                     ":expectedTotal" => ($updatedDBalance)]);
