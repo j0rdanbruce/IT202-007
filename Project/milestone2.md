@@ -357,7 +357,9 @@ __SubTask 6:__ Add a **screenshot** of the transaction pairs in the DB for the a
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [look at id 179 and 180. I am able to make the transaction pair for the transaction history, but again I am having troubl updating the balance of the account after a withdraw took place.](https://user-images.githubusercontent.com/95323815/208340214-e8025592-982b-4656-aec1-f0bc1fab0bb8.png)
+
+[here is a code snippet for my code reference. i think the issue likes within my query statement for the sepcifc account id](https://user-images.githubusercontent.com/95323815/208339767-86e2dba0-3ad8-419d-bf4f-809638f812ed.png)
 
 </ul>
 
@@ -366,7 +368,7 @@ __SubTask 7:__ Briefly explain how transactions work.
 
 <ul>
 
-> Explanation:   
+> Explanation:   the form is used to have the user select a specific amount to withdraw from a specific user. the form data had "name" attributes that allow me to attach the specificed value that the user inputs to those specific name attributes. The name attribute is sent via a $_POST request. the php script down below uses attaches this data to specified variables. Then a query statement is made from the database to retrieve the account number, balance, etc WHERE the accountNum = :account. Again, accountNum is attached via form data. after the query statement I can then compare the amount chosen to the actual amount in someones checking account.
 
 </ul>
 
