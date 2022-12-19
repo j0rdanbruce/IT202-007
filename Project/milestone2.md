@@ -314,7 +314,7 @@ __SubTask 3:__ Add a **screenshot** of a validation error for negative numbers
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [negative withdraw amount](https://user-images.githubusercontent.com/95323815/208339076-aff0ed0b-48c5-439a-ba98-8b4dfbca3e5d.png)
 
 </ul>
 
@@ -324,7 +324,9 @@ __SubTask 4:__ Add a **screenshot** of a validation error for withdrawing more t
 
 <br>Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [before the withdraw amount](https://user-images.githubusercontent.com/95323815/208339222-46002d42-3e41-46b1-a8d6-9bd0f8b17cba.png)
+
+[error message for withdrawing more than the balance](https://user-images.githubusercontent.com/95323815/208339245-adf7da97-bece-4c8d-ba3c-5607a50044dc.png)
 
 </ul>
 

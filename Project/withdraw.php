@@ -44,6 +44,22 @@ is_logged_in(true);
         }
         $hasError = false;
         $db = getDB();
+        //check for sufficient funds
+        if (!$hasError){
+            $stmt = $db->prepare("SELECT accountNum, balance FROM Account WHERE accountNum = :account");
+            $stmt->execute([":account"=>$accountNum]);
+            $result = $stmt->fetch(PDO::FETCH_OBJ);
+            $currentBalance = $result->balance;
+            if ($amount < 0){
+                $hasError = true;
+                flash("Cannot withdraw a negative amount", "warning");
+            }
+            if ($amount > $currentBalance){
+                $hasError = true;
+                flash("This checking account does not have sufficienct funds for this withdraw ammount.", "warning");
+            }
+        }
+
         //get current balance of world and get acocunt id for withdrawal
         if (!$hasError){
             //echo "here";
