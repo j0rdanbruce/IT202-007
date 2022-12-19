@@ -46,3 +46,14 @@ function get_user_id()
     }
     return false;
 }
+function get_user_firstName(){
+    if (is_logged_in()){
+        return se($_SESSION["user"], "firstName", false, false);
+    }
+    
+}
+function get_user_lastName(){
+    if(is_logged_in()){
+        return se($_SESSION["user"], "lastName", false, false);
+    }
+}

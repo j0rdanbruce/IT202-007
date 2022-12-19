@@ -4,6 +4,14 @@ reset_session();
 ?>
 <form onsubmit="return validate(this)" method="POST">
     <div>
+        <label for="first">First Name</label>
+        <input type="text" name="first" required placeholder="e.g Ben"/>
+    </div>
+    <div>
+        <label for="last">Last Name</label>
+        <input type="text" name="last" required placeholder="e.g Broly"/>
+    </div>
+    <div>
         <label for="logName"> Login Name </label>
         <input type="text" name="logName" required maxlength="30" placeholder="e.g. max">
     </div>
@@ -32,7 +40,10 @@ reset_session();
 </script>
 <?php
 //TODO 2: add PHP Code
-if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"]) && isset($_POST["logName"])) {
+if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"]) 
+    && isset($_POST["logName"]) && isset($_POST["first"]) && isset($_POST["last"])) {
+    $firstName = se($_POST, "first", "", false);
+    $lastName = se($_POST, "last", "", false);
     $email = se($_POST, "email", "", false);
     $password = se($_POST, "password", "", false);
     $confirm = se($_POST, "confirm", "", false);
@@ -77,9 +88,11 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         //TODO 4
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO User (email, pwrdHash, logName) VALUES(:email, :password, :username)");
+        $stmt = $db->prepare("INSERT INTO User (email, pwrdHash, logName, firstName, lastName) 
+                            VALUES(:email, :password, :username, :firstName, :lastName)");
         try {
-            $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
+            $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username,
+                            ":firstName"=>$firstName, ":lastName"=>$lastName]);
             flash("Successfully registered!", "success");
         } catch (Exception $e) {
             users_check_duplicate($e->errorInfo);
