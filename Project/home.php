@@ -22,6 +22,8 @@ if (is_logged_in(true)) {
                 <li><a href="deposit.php">Deposit</a></li>
                 <li><a href="withdraw.php">Withdraw</a></li>
                 <li><a href="profile.php">Profile</a></li>
+                <li><a href="internalTransfer.php">Internal Transfers</a></li>
+
             <?php endif; ?>
             <?php if (!is_logged_in()) : ?>
                 <li><a href="login.php">Login</a></li>
