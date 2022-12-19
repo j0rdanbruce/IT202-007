@@ -18,7 +18,7 @@ is_logged_in(true);
                     $accountNum = $result['accountNum'];
                     $balance = $result['balance'];
             ?>
-            <option value="<?php $accountNum ?>"> <?php echo $accountNum . " : " . $balance; ?> </option>
+            <option value="<?php echo $accountNum; ?>"> <?php echo $accountNum . " : " . $balance; ?> </option>
             <?php } ?>
         </select>
     </div>
@@ -38,25 +38,42 @@ is_logged_in(true);
     if (isset($_POST["account"]) && isset($_POST["amount"])){
         $accountNum = se($_POST, "account", "", false);
         $amount = (int)se($_POST, "amount", "", false);
-        echo $accountNum;
+        //echo $accountNum;
         if (isset($_POST["memo"])){
             $memo = se($_POST, "memo", "", false);
         }
         $hasError = false;
         $db = getDB();
+        //check for sufficient funds
+        if (!$hasError){
+            $stmt = $db->prepare("SELECT accountNum, balance FROM Account WHERE accountNum = :account");
+            $stmt->execute([":account"=>$accountNum]);
+            $result = $stmt->fetch(PDO::FETCH_OBJ);
+            $currentBalance = $result->balance;
+            if ($amount < 0){
+                $hasError = true;
+                flash("Cannot withdraw a negative amount", "warning");
+            }
+            if ($amount > $currentBalance){
+                $hasError = true;
+                flash("This checking account does not have sufficienct funds for this withdraw ammount.", "warning");
+            }
+        }
+
         //get current balance of world and get acocunt id for withdrawal
         if (!$hasError){
-            $stmt = $db->prepare("SELECT balance FROM Account WHERE userID = :userID");
+            //echo "here";
+            $stmt = $db->prepare("SELECT id, balance FROM Account WHERE userID = :userID");
             $stmt2 = $db->prepare("SELECT id FROM User WHERE email = :email");
             try{
                 $stmt->execute([":userID" => -1]);
                 $result = $stmt->fetch(PDO::FETCH_OBJ);
                 $currentBalance = (int)$result->balance;
-                $stmt2->execute([":email"=>get_user_email()]);
-                $result = $stmt2->fetch(PDO::FETCH_OBJ);
+                //$stmt2->execute([":email"=>get_user_email()]);
+                //$result = $stmt2->fetch(PDO::FETCH_OBJ);
                 //print_r($result);
                 $accountId = $result->id;
-                //echo $accountId;
+                echo $accountId;
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
             }
@@ -68,13 +85,29 @@ is_logged_in(true);
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
             }
+            //echo "here";
         }
         /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
+        //jeb79         date: 12/18/22
         if ($hasError){
-            
+            echo "here";
+            $stmt1 = $db->prepare("SELECT id, accountNum, balance FROM Account WHERE accountNum = :account");
+            $stmt2 = $db->prepare("UPDATE Account SET balance = :balance WHERE accountNum = :account");
+            try{
+                $stmt1->execute([":account"=>$accountNum]);
+                $result = $stmt1->fetch(PDO::FETCH_OBJ);
+                var_dump($result);
+                $accountID = (int)$result->id;
+                echo $accountID;
+                $currentWBalance = $result->balance;
+                echo $currentWBalance;
+                $stmt2->execute([":balance"=>($currentWBalance - $amount), ":account"=>$accountNum]);
+            }catch(Exception $e){
+                users_check_duplicate($e->errorInfo);
+            }
         }
         /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
-
+        
         //create transaction pair for withdrawal
         if (!$hasError){
             $stmt1 = $db->prepare("INSERT INTO Transactions (accountSrc, accountDest, balanceChg, transType, memo, expectedTotal) 
@@ -91,7 +124,7 @@ is_logged_in(true);
                                     VALUES (:accountSrc, :accountDest, :balanceChg, :transType, :memo, :expectedTotal)");
             try{
                 $stmt2->execute([":accountSrc" => get_user_id(), ":accountDest" => -1, ":balanceChg" => ($amount),
-                                    ":transType" => "withdraw", ":memo" => "withdraw from account " . $accountId, ":expectedTotal" => ($amount)]);
+                                    ":transType" => "withdraw", ":memo" => "withdraw from account " . $accountID, ":expectedTotal" => ($amount)]);
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
             }
