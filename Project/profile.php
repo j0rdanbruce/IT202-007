@@ -2,10 +2,15 @@
 require_once(__DIR__ . "/../partials/nav.php");
 is_logged_in(true);
 ?>
+
+<h1></h1>
+
 <?php
 if (isset($_POST["save"])) {
     $email = se($_POST, "email", null, false);
     $username = se($_POST, "username", null, false);
+    $firstName = se($_POST, "firstName", null, false);
+    $lastName = se($_POST, "lastName", null, false);
     $hasError = false;
     //sanitize
     $email = sanitize_email($email);
@@ -19,9 +24,11 @@ if (isset($_POST["save"])) {
         $hasError = true;
     }
     if (!$hasError) {
-        $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()]; 
+        $params = [":email" => $email, ":username" => $username, ":firstName"=>$firstName,
+                    ":lastName"=>$lastName, ":id" => get_user_id()]; 
         $db = getDB();
-        $stmt = $db->prepare("UPDATE User set email = :email, logName = :username where id = :id");
+        $stmt = $db->prepare("UPDATE User set email = :email, logName = :username, 
+                            firstName = :firstName, lastName = :lastName where id = :id");
         try {
             $stmt->execute($params);
             flash("Profile saved", "success");
@@ -29,7 +36,7 @@ if (isset($_POST["save"])) {
             users_check_duplicate($e->errorInfo);
         }
         //select fresh data from table
-        $stmt = $db->prepare("SELECT id, email, logName from User where id = :id LIMIT 1");
+        $stmt = $db->prepare("SELECT id, email, logName, firstName, lastName from User where id = :id LIMIT 1");
         try {
             $stmt->execute([":id" => get_user_id()]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -37,6 +44,8 @@ if (isset($_POST["save"])) {
                 //$_SESSION["user"] = $user;
                 $_SESSION["user"]["email"] = $user["email"];
                 $_SESSION["user"]["logName"] = $user["logName"];
+                $_SESSION["user"]["firstName"] = $user["firstName"];
+                $_SESSION["user"]["lastName"] = $user["lastName"];
             } else {
                 flash("User doesn't exist", "danger");
             }
@@ -92,8 +101,18 @@ if (isset($_POST["save"])) {
 <?php
 $email = get_user_email();
 $username = get_username();
+$firstName = get_user_firstName();
+$lastName = get_user_lastName();
 ?>
 <form method="POST" onsubmit="return validate(this);">
+    <div class="mb-3">
+        <label for="firstName">First Name</label>
+        <input type="text" name="firstName" id="firstName" value="<?php se($firstName); ?>" />
+    </div>
+    <div class="mb-3">
+        <label for="lastName">Last Name</label>
+        <input type="text" name="lastName" id="lastName" value="<?php se($lastName); ?>" />
+    </div>
     <div class="mb-3">
         <label for="email">Email</label>
         <input type="email" name="email" id="email" value="<?php se($email); ?>" />
