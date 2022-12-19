@@ -173,7 +173,7 @@ __SubTask 6:__ Add a direct link to NJIT's webserver prod for this file
 
 #### Required url pattern: https?://web.njit.edu/~.+-prod/*
 
-> URL(s): 
+> URL(s): https://web.njit.edu/~jeb79/jeb79-prod/Project/createAccount.php
 
 </ul></ul>
 
@@ -195,7 +195,7 @@ __SubTask 1:__ Add a **screenshot** showing the user's account list view (show 5
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [project document says to list 4](https://user-images.githubusercontent.com/95323815/208333891-ea3bd639-76a0-4c6b-9214-7cade3ad6d04.png)
 
 </ul>
 
@@ -203,7 +203,7 @@ __SubTask 2:__ Briefly explain how the page is displayed and the data lookup occ
 
 <ul>
 
-> Explanation:   
+> Explanation:   I made a DB query statement that selected account number, balance, etc with a where condition that selected only the user id that is currently logged in. I used the get_user_id() function to obtain the user id that is currently logded in for the where condition. with a table tag i listed each account from the result that was received from the query selection statement.
 
 </ul>
 
@@ -213,7 +213,7 @@ __SubTask 3:__ Add the related pull request link(s)
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/pull/44/commits/035f822802e40b42194ee37e4de7f41aa86ad3a5
 
 </ul> 
 
@@ -223,7 +223,7 @@ __SubTask 4:__ Add a direct link to NJIT's webserver prod for this file
 
 #### Required url pattern: https?://web.njit.edu/~.+-prod/*
 
-> URL(s): 
+> URL(s): https://web.njit.edu/~jeb79/jeb79-prod/Project/accounts.php
 
 </ul></ul>
 
@@ -246,7 +246,9 @@ __SubTask 1:__ Add a **screenshot** of an account's transaction history
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [account list details](https://user-images.githubusercontent.com/95323815/208335372-90351165-5c7b-4eca-a442-5befd42a8ebf.png)
+
+[transaction history for specific account is bugged](https://user-images.githubusercontent.com/95323815/208335639-1f168144-76bc-427c-ba04-a547b3af8152.png)
 
 </ul>
 
@@ -255,7 +257,7 @@ __SubTask 2:__ Explain how the lookup and display occurs.
 
 <ul>
 
-> Explanation:   
+> Explanation:   I embedded a php script within a table tag element. inside the php script, i queried a database call to select a specific account based on the clicked on account number from the checking accounts table. the specific details of the clicked on account number works and displays the correct data. however, showing the 12 most recent transaction history of that specific account number is bugged and i could not create a table for the transction history for the clicked on account number. 
 
 </ul>
 
@@ -265,7 +267,7 @@ __SubTask 3:__ Add the related pull request link(s)
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/pull/47
 
 </ul> 
 
@@ -275,7 +277,7 @@ __SubTask 4:__ Add a direct link to NJIT's webserver prod for this file
 
 #### Required url pattern: https?://web.njit.edu/~.+-prod/*
 
-> URL(s): 
+> URL(s): https://web.njit.edu/~jeb79/jeb79-prod/Project/accounts.php
 
 </ul></ul>
 
@@ -290,7 +292,7 @@ __SubTask 1:__ Add a **screenshot** of the Deposit Page. Show valid data filled 
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [deposit funds page](https://user-images.githubusercontent.com/95323815/208337330-a725d95c-6768-44ba-ad64-4480b4ecb425.png)
 
 </ul>
 
@@ -300,7 +302,7 @@ __SubTask 2:__ Add a **screenshot** of the Withdraw Page (this potentially can b
 
 <br>Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [withdraw funds page](https://user-images.githubusercontent.com/95323815/208337413-fbd67fbe-2305-44b3-ad80-9ffac0492dde.png)
 
 </ul>
 
@@ -312,7 +314,7 @@ __SubTask 3:__ Add a **screenshot** of a validation error for negative numbers
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [negative withdraw amount](https://user-images.githubusercontent.com/95323815/208339076-aff0ed0b-48c5-439a-ba98-8b4dfbca3e5d.png)
 
 </ul>
 
@@ -322,7 +324,9 @@ __SubTask 4:__ Add a **screenshot** of a validation error for withdrawing more t
 
 <br>Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [before the withdraw amount](https://user-images.githubusercontent.com/95323815/208339222-46002d42-3e41-46b1-a8d6-9bd0f8b17cba.png)
+
+[error message for withdrawing more than the balance](https://user-images.githubusercontent.com/95323815/208339245-adf7da97-bece-4c8d-ba3c-5607a50044dc.png)
 
 </ul>
 
@@ -334,7 +338,7 @@ __SubTask 5:__ Show two **screenshots** of success messages for a deposit and aw
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [this portion of my applicaiton is bugged. i am able to create the transaction from world to account and from account to world but i was having trouble actually making the update to the account for the withdraw amount](https://user-images.githubusercontent.com/95323815/208339767-86e2dba0-3ad8-419d-bf4f-809638f812ed.png)
 
 </ul>
 
