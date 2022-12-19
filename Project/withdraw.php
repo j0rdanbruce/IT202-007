@@ -88,6 +88,7 @@ is_logged_in(true);
             //echo "here";
         }
         /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
+        //jeb79         date: 12/18/22
         if ($hasError){
             echo "here";
             $stmt1 = $db->prepare("SELECT id, accountNum, balance FROM Account WHERE accountNum = :account");

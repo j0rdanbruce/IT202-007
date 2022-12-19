@@ -338,7 +338,7 @@ __SubTask 5:__ Show two **screenshots** of success messages for a deposit and aw
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [this portion of my applicaiton is bugged. i am able to create the transaction from world to account and from account to world but i was having trouble actually making the update to the account for the withdraw amount](https://user-images.githubusercontent.com/95323815/208339767-86e2dba0-3ad8-419d-bf4f-809638f812ed.png)
 
 </ul>
 
