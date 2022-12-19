@@ -95,8 +95,8 @@ is_logged_in(true);
                 users_check_duplicate($e->errorInfo);
             }
             flash("Successfully Registered for Checking Account! '\nFunds have been added to your checking account.", "success");
+            die(header("Location: accounts.php"));
         }
-        die(header("Location: accounts.php"));
     }
 ?>
 
