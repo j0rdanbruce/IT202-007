@@ -378,7 +378,7 @@ __SubTask 8:__ Add the related pull request link(s)
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/pull/58/commits/e7f2d1f528a02e9d7aeb40b7708ce2317ce1275f
 
 </ul> 
 
