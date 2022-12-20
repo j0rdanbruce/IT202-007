@@ -21,6 +21,7 @@ $username = get_username();
             <th>Modified Date</th>
             <th>Current Balance</th>
         </tr>
+        
         <?php
             $db = getDB();
             $stmt = $db->prepare("SELECT accountNum, accountType, modified, balance FROM Account WHERE userID = :userID LIMIT 4 OFFSET 0");
@@ -70,14 +71,16 @@ $username = get_username();
             try{
                 $stmt->execute([":accountNum"=>$accountNum]);
                 $result = $stmt->fetch(PDO::FETCH_OBJ);
+                //$accountID = (int)$result->id;
                 $accountType = $result->accountType;
                 $balance = $result->balance;
                 $created = $result->created;
+
         ?>
         <tr>
             <td><?php echo $accountNum; ?></td>
             <td><?php echo $accountType; ?></td>
-            <td><?php echo $balance; ?></td>
+            <td>$<?php echo $balance; ?></td>
             <td><?php echo $created; ?></td>
         </tr>
         <?php
@@ -86,28 +89,119 @@ $username = get_username();
             }
         ?>
     </table>
+    <br><br><br>
+
+<form onsubmit="return validate(this)" method="POST">
+    <div>
+        <label for="date">Search History by Date:</label>
+        
+        <input type="datetime-local" value="" name="startDate"/>
+        <label for="-"> - </label>
+        <input type="datetime-local" value="" name="endDate">
+    </div>
+    <div>
+        <label for="type">Search History by type of transaction:</label>
+        
+        <select name="type" id="type">
+            <option value=""></option>
+            <option value="deposit">deposit</option>
+            <option value="withdraw">withdraw</option>
+            <option value="transfer">transfer</option>
+        </select>
+    </div>
+
+    <input type="submit" value="Submit" />
+</form>
+<br><br>
 
     <div>
-        <?php 
+        <table border="1">
+            <tr>
+                <td>Account Source</td>
+                <td>Account Destination</td>
+                <td>balance change</td>
+                <td>Transaction Type</td>
+                <td>Memo</td>
+                <td>Expected Total</td>
+                <td>Created On</td>
+            </tr>
+            <?php
+            //where the transaction history will be shown. grab account id of specifiec account num
+            //make query statement to retrieve all rows with actSrc = account id or actDest = account id
             if (isset($_POST["accountNum"])){
-                $accountNum = se($_POST, "accountNum", "", false);
+                $accountNum = strval(se($_POST, "accountNum", "", false));
+                //echo $accountNum;
             }
+            //jeb79             date: 12/19/22
+            $typeFlag = false;
             $db = getDB();
-            //$stmt1 = $db->prepare("SELECT id FROM Account WHERE accountNum = :accountNum");
-            $stmt = $db->prepare("SELECT Account.id, Transactions.accountNum, Transactions.accountSrc, Transactions.accountDest, Transactions.transType, 
-                                            Transactions.balanceChg, Transactions.created, Transactions.expectedTotal, Transactions.memo 
-                                FROM Transactions LEFT JOIN Account ON Transactions.accountSrc = Account.id
-                                WHERE accountNum = :accountNum LIMIT 12 OFFSET 0");
+            $stmt = $db->prepare("SELECT id, accountNum FROM Account WHERE accountNum = :accountNum");
+            if (isset($_POST["startDate"]) && isset($_POST["endDate"])){
+                $startDate = se($_POST, "startDate", "", false);
+                $endDate = se($_POST, "endDate", "", false);
+                //echo $startDate;
+                $stmt2 = $db->prepare("SELECT accountSrc, accountDest, balanceChg, transType, memo, 
+                                    expectedTotal, created 
+                                    FROM Transactions
+                                    WHERE (created >= '$startDate%' AND created <= '$endDate%')
+                                    AND (accountSrc = :accountSrc OR accountDest = :accountDest)
+                                    LIMIT 12 OFFSET 0");
+            }elseif (isset($_POST["type"])) {
+                //echo "here";
+                $typeFlag = true;
+                $transType = se($_POST, "type", "", false);
+                echo $transType;
+                $stmt2 = $db->prepare("SELECT accountSrc, accountDest, balanceChg, transType, memo, 
+                                    expectedTotal, created 
+                                    FROM Transactions
+                                    WHERE (transType = :transType)
+                                    AND (accountSrc = :accountSrc OR accountDest = :accountDest)
+                                    LIMIT 12 OFFSET 0");
+            }
+            else{
+                $stmt2 = $db->prepare("SELECT accountSrc, accountDest, balanceChg, transType, memo, expectedTotal, created 
+                                FROM Transactions
+                                WHERE accountSrc = :accountSrc OR accountDest = :accountDest
+                                LIMIT 12 OFFSET 0");
+            }
+            //jeb79         date:12/19/2022
             try{
-                //$result = $stmt->execute([":accountNum"=>$accountNum]);
-                //$id = $result->id;
-                $result = $stmt->execute([":accountNum"=>$accountNum]);
-                var_dump($result);
+                $stmt->execute([":accountNum"=>$accountNum]);
+                $result = $stmt->fetch(PDO::FETCH_OBJ);
+                $id = (int)$result->id;
+                //echo $id;
+                if ($typeFlag){
+                    $stmt2->execute([":transType"=>$transType, ":accountSrc"=>$id, ":accountDest"=>$id]);
+                }else{
+                    $stmt2->execute([":accountSrc"=>$id, ":accountDest"=>$id]);
+                }
+                //$stmt2->execute([":accountSrc"=>$id, ":accountDest"=>$id]);
+                while($result = $stmt2->fetch(PDO::FETCH_OBJ)){
+                    $accountSrc = $result->accountSrc;
+                    $accountDest = $result->accountDest;
+                    $balanceChg = $result->balanceChg;
+                    $transType = $result->transType;
+                    $memo = $result->memo;
+                    $expectedTotal = $result->expectedTotal;
+                    $created = $result->created;
+                ?>
+
+                <tr>
+                    <td><?php echo $accountSrc;?></td>
+                    <td><?php echo $accountDest;?></td>
+                    <td><?php echo $balanceChg;?></td>
+                    <td><?php echo $transType;?></td>
+                    <td><?php echo $memo;?></td>
+                    <td><?php echo $expectedTotal;?></td>
+                    <td><?php echo $created;?></td>
+                </tr>
+                <?php
+                }
+                
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
             }
-        ?>
-        <table>
+            ?>
 
         </table>
     </div>
