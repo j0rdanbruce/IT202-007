@@ -230,7 +230,8 @@ __SubTask 1:__ Add a **screenshot** showing the user's profile with the new fiel
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:  
+> Screenshot:  [display and form for first and last name](https://user-images.githubusercontent.com/95323815/208549080-02e647e3-24a5-47a8-a07d-56f0df44a0ac.png)        
+[.sql file to insert name to User data table](https://user-images.githubusercontent.com/95323815/208549665-6ec0917e-1f58-4d15-9d79-d7a9bdb148cc.png)
 
 </ul>
 
@@ -240,7 +241,7 @@ __SubTask 2:__ Add the related pull request link(s)
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/commit/e5f9ca4f9fbfc2b9955014618bdca7380bed7e9c
 
 </ul> 
 
@@ -251,7 +252,7 @@ __SubTask 3:__ Add the URL to the profile page on NJIT's webserver prod for this
 
 #### Required url pattern: https?://web.njit.edu/~.+-prod/*
 
-> URL(s): 
+> URL(s): https://web.njit.edu/~jeb79/jeb79-prod/Project/profile.php
 
 </ul></ul>
 
@@ -264,7 +265,9 @@ __SubTask 1:__ Add a **screenshot** of the external transfer page with filled in
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:
+> Screenshot:[before external transfer submission](https://user-images.githubusercontent.com/95323815/208549891-dc08870d-ea08-458c-b03e-38e6f7a662ee.png)       
+[after submission of external transfer](https://user-images.githubusercontent.com/95323815/208549929-1dbd97f8-f018-4d56-8888-7e342b0e99a3.png)      
+[transaction history proof](https://user-images.githubusercontent.com/95323815/208550241-3ad0139f-a396-45b2-a3c9-2ec958b208ea.png)
 
 </ul>
 
@@ -283,7 +286,8 @@ __SubTask 2:__ Add a **screenshot** showing user can't send more than they have
 
 ### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [before submission of extern transfer form](https://user-images.githubusercontent.com/95323815/208550367-6c13e2d9-ba3c-408d-969d-8f5048528703.png)      
+[after submission of ext transfer form](https://user-images.githubusercontent.com/95323815/208550396-f0184cf9-beda-40f6-bbff-938904099d1a.png)
 
 </ul>
 
@@ -302,7 +306,8 @@ __SubTask 3:__ Add a **screenshot** showing they can't send a negative amount
 
 ### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [before submission of negative external transfer amount](https://user-images.githubusercontent.com/95323815/208550585-83ac868b-952e-447d-b205-2cee03419ca1.png)     
+[after submission of negative amount](https://user-images.githubusercontent.com/95323815/208550604-5a18c7cf-e294-41a6-9daa-e3dc23eb892a.png)
 
 </ul>
 
@@ -321,7 +326,9 @@ __SubTask 4:__ Add **screenshot(s)** showing messages if a user doesn't exist an
 
 ### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot(s):   
+> Screenshot(s):   [user not found before submitting form](https://user-images.githubusercontent.com/95323815/208550781-8c0a4008-da28-4a95-9bf8-60a393770892.png)      
+[user not found after submission of data](https://user-images.githubusercontent.com/95323815/208550799-9409a54d-91e5-480e-97df-d9c16c329780.png)
+[same user last name but not correct account for transfer](https://user-images.githubusercontent.com/95323815/208550999-6603b1ce-d6c9-4708-a59f-f338250fac6e.png)
 
 </ul>
 
@@ -340,7 +347,7 @@ __SubTask 5:__ Add a **screenshot**  of the transactions table showing the recor
 
 ### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [two succesful external transfers to different checking accounts not belinging to user. picture of transaction history DB](https://user-images.githubusercontent.com/95323815/208551187-0a27e53d-0811-4ad6-9199-807b3f946790.png)
 
 </ul>
 
@@ -359,7 +366,8 @@ __SubTask 6:__ Add **screenshot(s)** showing the updated account balances
 
 ### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot(s):   
+> Screenshot(s):   [account updated after external transfers](https://user-images.githubusercontent.com/95323815/208551458-840672e3-9668-4260-8efe-040791e94ed5.png)       
+[updated account that was withdrawn from. look at id 8 at the bottom](https://user-images.githubusercontent.com/95323815/208551966-80e2d57a-dc14-41f5-ad92-b4fff4d57118.png)
 
 </ul>
 
@@ -367,7 +375,7 @@ __SubTask 7:__ Briefly explain the process of looking up the target user's accou
 
 <ul>
 
-> Explanation:   
+> Explanation:   a form data is filled out by the user. the form data has sections for account and amount in checking account in a drop down list that was displayed using select tags and filling in each value option with a wuery statement pull from data base of all users cucrrent checking acounts. the amount data is specified in a for of type number. there is a section for form data for the receving user for his/her last name. Another field for filling in the last 4 digits of that persons target checking account. a query statement is enacted in a php script to check database for an existing user by that last name and an existing account that ends with specified 4 digits that belongs to specified receiving user. once verified, the transaction is enacted using UPDATE queery statement to update respective users accounts after external transfer.
 
 </ul>
 
@@ -377,7 +385,7 @@ __SubTask 8:__ Add the related pull request(s)
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/commit/b0fcef035b16afdc97924944f5a2444047ec0e2f
 
 </ul>
 
@@ -387,7 +395,7 @@ __SubTask 9:__ Add the URL to the the external transfer page on NJIT's webserver
 
 #### Required url pattern: https?://web.njit.edu/~.+-prod/*
 
-> URL(s): 
+> URL(s): https://web.njit.edu/~jeb79/jeb79-prod/Project/externalTransfer.php
 
 </ul></ul>
 
@@ -411,6 +419,6 @@ __SubTask 1:__ Add **screenshots** showing which issues are done/closed (project
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot(s):
+> Screenshot(s):[I was having trouble with the selection of the transfer type when pulling up transaction history. I had a select form field for selecting transaction types for specifying only transfer, deposit, or withdraw. the name attribute was set so the php script could grab the $_POST form data for the specified transaction type. however, in the php script, the se() function was nevery able to recevie the form data for the specifed transaction type](https://user-images.githubusercontent.com/95323815/208553448-83035afd-af76-411b-a5a8-a2382c4b2a3a.png)
 
 </ul></ul>
