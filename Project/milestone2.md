@@ -314,7 +314,7 @@ __SubTask 3:__ Add a **screenshot** of a validation error for negative numbers
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [negative withdraw amount](https://user-images.githubusercontent.com/95323815/208339076-aff0ed0b-48c5-439a-ba98-8b4dfbca3e5d.png)
 
 </ul>
 
@@ -324,7 +324,9 @@ __SubTask 4:__ Add a **screenshot** of a validation error for withdrawing more t
 
 <br>Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [before the withdraw amount](https://user-images.githubusercontent.com/95323815/208339222-46002d42-3e41-46b1-a8d6-9bd0f8b17cba.png)
+
+[error message for withdrawing more than the balance](https://user-images.githubusercontent.com/95323815/208339245-adf7da97-bece-4c8d-ba3c-5607a50044dc.png)
 
 </ul>
 
@@ -336,7 +338,7 @@ __SubTask 5:__ Show two **screenshots** of success messages for a deposit and aw
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [this portion of my applicaiton is bugged. i am able to create the transaction from world to account and from account to world but i was having trouble actually making the update to the account for the withdraw amount](https://user-images.githubusercontent.com/95323815/208339767-86e2dba0-3ad8-419d-bf4f-809638f812ed.png)
 
 </ul>
 
@@ -355,7 +357,9 @@ __SubTask 6:__ Add a **screenshot** of the transaction pairs in the DB for the a
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot:   
+> Screenshot:   [look at id 179 and 180. I am able to make the transaction pair for the transaction history, but again I am having troubl updating the balance of the account after a withdraw took place.](https://user-images.githubusercontent.com/95323815/208340214-e8025592-982b-4656-aec1-f0bc1fab0bb8.png)
+
+[here is a code snippet for my code reference. i think the issue likes within my query statement for the sepcifc account id](https://user-images.githubusercontent.com/95323815/208339767-86e2dba0-3ad8-419d-bf4f-809638f812ed.png)
 
 </ul>
 
@@ -364,7 +368,7 @@ __SubTask 7:__ Briefly explain how transactions work.
 
 <ul>
 
-> Explanation:   
+> Explanation:   the form is used to have the user select a specific amount to withdraw from a specific user. the form data had "name" attributes that allow me to attach the specificed value that the user inputs to those specific name attributes. The name attribute is sent via a $_POST request. the php script down below uses attaches this data to specified variables. Then a query statement is made from the database to retrieve the account number, balance, etc WHERE the accountNum = :account. Again, accountNum is attached via form data. after the query statement I can then compare the amount chosen to the actual amount in someones checking account.
 
 </ul>
 
@@ -374,7 +378,7 @@ __SubTask 8:__ Add the related pull request link(s)
 
 #### Required url pattern: https?://github.com/(?:[^/.]+/)+(?:pull/.+)
 
-> URL(s): 
+> URL(s): https://github.com/j0rdanbruce/IT202-007/pull/58/commits/e7f2d1f528a02e9d7aeb40b7708ce2317ce1275f
 
 </ul> 
 
@@ -384,7 +388,7 @@ __SubTask 9:__ Add a direct link to NJIT's webserver prod for this file
 
 #### Required url pattern: https?://web.njit.edu/~.+-prod/*
 
-> URL(s): 
+> URL(s): https://web.njit.edu/~jeb79/jeb79-prod/Project/withdraw.php
 
 </ul></ul>
 
@@ -409,7 +413,7 @@ __SubTask 1:__ Add **screenshots** showing which issues are done/closed (project
 
 #### Make sure if the **screenshot** contains code that you have a relevant comment with your ucid, date, and explanation of what you're attempting, if not max grade for this item is 75%.
 #### Provide a Github URL to each **screenshot** you've uploaded with a caption
-> Screenshot(s):
+> Screenshot(s):[project board: I was having trouble in the transaction history portion of the accounts list feature. I was able to grab the accountNumber from the form data. But I was having trouble making a query select statement for all the transaction pairs that included the addount number ID. For withdraw and deposit, I still am having trouble actually updating the account after the intial withdraw or deposit takes place.](https://user-images.githubusercontent.com/95323815/208341863-dc96480f-1602-40c7-a86d-0ade7bb59db2.png)
 
 </ul>
 
@@ -419,6 +423,8 @@ __SubTask 2:__ Add a link to your NJIT webserver prod projects login page
 
 #### Required url pattern: https?://web.njit.edu/.+-prod.*
 
-> URL: 
+> URL: https://web.njit.edu/~jeb79/jeb79-prod/Project/login.php
+
+[not sure if you already made an account for my website, but the register feature is not working now for some reason. I can prove that my login feature works in my presentation though.]
 
 </ul></ul>

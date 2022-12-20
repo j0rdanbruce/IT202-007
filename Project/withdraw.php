@@ -37,6 +37,7 @@ is_logged_in(true);
 <?php
     if (isset($_POST["account"]) && isset($_POST["amount"])){
         $accountNum = se($_POST, "account", "", false);
+        $worldAccount = "000000000000";
         $amount = (int)se($_POST, "amount", "", false);
         //echo $accountNum;
         if (isset($_POST["memo"])){
@@ -44,73 +45,60 @@ is_logged_in(true);
         }
         $hasError = false;
         $db = getDB();
-        //get current balance of world and get acocunt id for withdrawal
+        //check for sufficient funds
         if (!$hasError){
-            //echo "here";
-            $stmt = $db->prepare("SELECT id, balance FROM Account WHERE userID = :userID");
-            $stmt2 = $db->prepare("SELECT id FROM User WHERE email = :email");
-            try{
-                $stmt->execute([":userID" => -1]);
-                $result = $stmt->fetch(PDO::FETCH_OBJ);
-                $currentBalance = (int)$result->balance;
-                //$stmt2->execute([":email"=>get_user_email()]);
-                //$result = $stmt2->fetch(PDO::FETCH_OBJ);
-                //print_r($result);
-                $accountId = $result->id;
-                echo $accountId;
-            }catch(Exception $e){
-                users_check_duplicate($e->errorInfo);
+            $stmt = $db->prepare("SELECT accountNum, balance FROM Account WHERE accountNum = :account");
+            $stmt->execute([":account"=>$accountNum]);
+            $result = $stmt->fetch(PDO::FETCH_OBJ);
+            $currentBalance = $result->balance;
+            if ($amount < 0){
+                $hasError = true;
+                flash("Cannot withdraw a negative amount", "warning");
             }
-            //update balance of world
-            $updateBalance = $currentBalance + $amount;
-            $stmt = $db->prepare("UPDATE Account SET balance = :balance WHERE userID = :userID");
-            try{
-                $stmt->execute([":balance"=>$updateBalance, ":userID"=>-1]);
-            }catch(Exception $e){
-                users_check_duplicate($e->errorInfo);
+            if ($amount > $currentBalance){
+                $hasError = true;
+                flash("This checking account does not have sufficienct funds for this withdraw ammount.", "warning");
             }
-            //echo "here";
         }
-        /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
-        if ($hasError){
-            echo "here";
+        //grabbing ids and updating balances of respective accounts
+        if (!$hasError){
             $stmt1 = $db->prepare("SELECT id, accountNum, balance FROM Account WHERE accountNum = :account");
             $stmt2 = $db->prepare("UPDATE Account SET balance = :balance WHERE accountNum = :account");
             try{
                 $stmt1->execute([":account"=>$accountNum]);
                 $result = $stmt1->fetch(PDO::FETCH_OBJ);
-                var_dump($result);
-                $accountID = (int)$result->id;
-                echo $accountID;
-                $currentWBalance = $result->balance;
-                echo $currentWBalance;
-                $stmt2->execute([":balance"=>($currentWBalance - $amount), ":account"=>$accountNum]);
+                $withdrawID = (int)$result->id;
+                $currentWBalance = (int)$result->balance;
+                //echo $currentWBalance;
+                $stmt1->execute([":account"=>$worldAccount]);
+                $result = $stmt1->fetch(PDO::FETCH_OBJ);
+                $currentWorldBalance = (int)$result->balance;
+                $updatedWBalance = $currentBalance - $amount;
+                $updatedWorldBalance = $currentWorldBalance + $amount;
+                //echo "updated withdraw balance is " . $updatedWBalance;
+                //echo "updated world balance is " . $updatedWorldBalance;
+                $stmt2->execute([":balance"=>$updatedWBalance, ":account"=>$accountNum]);
+                $stmt2->execute([":balance"=>$updatedWorldBalance, ":account"=>$worldAccount]);
+                flash("successfully withdrew funds from Account Number: " . $accountNum, "success");
             }catch(Exception $e){
                 users_check_duplicate($e->errorInfo);
             }
         }
-        /////////////MUST UPDATE BALANCE OF CHECKING ACCOUNT AFTER MAKING WITHDRAWAL
-        
-        //create transaction pair for withdrawal
+        //make transaction pair
         if (!$hasError){
             $stmt1 = $db->prepare("INSERT INTO Transactions (accountSrc, accountDest, balanceChg, transType, memo, expectedTotal) 
                                     VALUES (:accountSrc, :accountDest, :balanceChg, :transType, :memo, :expectedTotal)");
             try{
-                $stmt1->execute([":accountSrc" => -1, ":accountDest" => get_user_id(), ":balanceChg" => (-1 * $amount), 
-                                    ":transType" => "withdraw", ":memo" => "", ":expectedTotal" => ($updateBalance)]);
+                $stmt1->execute([":accountSrc" => -1, ":accountDest" => $withdrawID, ":balanceChg" => (-1 * $amount), 
+                                    ":transType" => "withdraw", ":memo" => "", ":expectedTotal" => ($updatedWorldBalance)]);
+                $stmt1->execute([":accountSrc" => $withdrawID, ":accountDest" => -1, ":balanceChg" => ($amount), 
+                                    ":transType" => "withdraw", ":memo" => "withdraw from acct" . $withdrawID, 
+                                    ":expectedTotal" => ($updatedWBalance)]);
             }catch(Exception $e) {
                 users_check_duplicate($e->errorInfo);
             }
-        }
-        if (!$hasError){
-            $stmt2 = $db->prepare("INSERT INTO Transactions (accountSrc, accountDest, balanceChg, transType, memo, expectedTotal) 
-                                    VALUES (:accountSrc, :accountDest, :balanceChg, :transType, :memo, :expectedTotal)");
-            try{
-                $stmt2->execute([":accountSrc" => get_user_id(), ":accountDest" => -1, ":balanceChg" => ($amount),
-                                    ":transType" => "withdraw", ":memo" => "withdraw from account " . $accountID, ":expectedTotal" => ($amount)]);
-            }catch(Exception $e){
-                users_check_duplicate($e->errorInfo);
-            }
+            flash("Successfully withdrew $" . $amount, "success");
+            die(header("Location: accounts.php"));
         }
     }
     
